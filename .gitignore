@@ -1,0 +1,4 @@
+# Gitignore
+.venv/
+scrape/
+data/
