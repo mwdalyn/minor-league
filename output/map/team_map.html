@@ -1,0 +1,4222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b78149a5eb826b0cf12cefbc3d16f30a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_b78149a5eb826b0cf12cefbc3d16f30a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b78149a5eb826b0cf12cefbc3d16f30a = L.map(
+                "map_b78149a5eb826b0cf12cefbc3d16f30a",
+                {
+                    center: [38.7946, -106.5348],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_08da9a3554c9986bb4bb9c52f705e575 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_08da9a3554c9986bb4bb9c52f705e575.addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+        
+    
+            var feature_group_053281746217f96c810c53a964b2409f = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_d9a61d371aa55013882fd5cf5188ee01 = L.marker(
+                [42.8864163, -78.8781493],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_69a649551b4c40b26f37d0a3fe9b0481 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9337cac9035df07153e9c341d1e4a29c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_02b64aec3aff844d78c500bfa14c8298 = $(`<div id="html_02b64aec3aff844d78c500bfa14c8298" style="width: 100.0%; height: 100.0%;">Buffalo, New York</div>`)[0];
+                popup_9337cac9035df07153e9c341d1e4a29c.setContent(html_02b64aec3aff844d78c500bfa14c8298);
+            
+        
+
+        marker_d9a61d371aa55013882fd5cf5188ee01.bindPopup(popup_9337cac9035df07153e9c341d1e4a29c)
+        ;
+
+        
+    
+    
+            marker_d9a61d371aa55013882fd5cf5188ee01.bindTooltip(
+                `<div>
+                     Buffalo Bisons
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d9a61d371aa55013882fd5cf5188ee01.setIcon(icon_69a649551b4c40b26f37d0a3fe9b0481);
+            
+    
+            var marker_a6ae7a7ee05490ca406b9728841c55e6 = L.marker(
+                [35.2272086, -80.8430827],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_f9e83366aec33b7eb39e43ffe285e9b9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a23f03bc61bc25bbacfe1c35faa5ffd4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2f2004b4076725ab88765ed245d475c2 = $(`<div id="html_2f2004b4076725ab88765ed245d475c2" style="width: 100.0%; height: 100.0%;">Charlotte, North Carolina</div>`)[0];
+                popup_a23f03bc61bc25bbacfe1c35faa5ffd4.setContent(html_2f2004b4076725ab88765ed245d475c2);
+            
+        
+
+        marker_a6ae7a7ee05490ca406b9728841c55e6.bindPopup(popup_a23f03bc61bc25bbacfe1c35faa5ffd4)
+        ;
+
+        
+    
+    
+            marker_a6ae7a7ee05490ca406b9728841c55e6.bindTooltip(
+                `<div>
+                     Charlotte Knights
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a6ae7a7ee05490ca406b9728841c55e6.setIcon(icon_f9e83366aec33b7eb39e43ffe285e9b9);
+            
+    
+            var marker_f87b9b18a98634faef09a5354249f1f1 = L.marker(
+                [39.9622601, -83.0007065],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_67c486fd7117ee1352f0a90a6129cf95 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_30fe42faf2eae910fae00844917b1296 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bb1057cf4be41ef85cb42b1db0bcf748 = $(`<div id="html_bb1057cf4be41ef85cb42b1db0bcf748" style="width: 100.0%; height: 100.0%;">Columbus, Ohio</div>`)[0];
+                popup_30fe42faf2eae910fae00844917b1296.setContent(html_bb1057cf4be41ef85cb42b1db0bcf748);
+            
+        
+
+        marker_f87b9b18a98634faef09a5354249f1f1.bindPopup(popup_30fe42faf2eae910fae00844917b1296)
+        ;
+
+        
+    
+    
+            marker_f87b9b18a98634faef09a5354249f1f1.bindTooltip(
+                `<div>
+                     Columbus Clippers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f87b9b18a98634faef09a5354249f1f1.setIcon(icon_67c486fd7117ee1352f0a90a6129cf95);
+            
+    
+            var marker_60c8e328554a9fc0e46d9ffd40b8b5bf = L.marker(
+                [35.996653, -78.9018053],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_5759c34330c6c79d6b624ab68918edfd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7bbea2008fa3f4ef3005357861bb5beb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_10a5dc1cf94728772250e9056b06142c = $(`<div id="html_10a5dc1cf94728772250e9056b06142c" style="width: 100.0%; height: 100.0%;">Durham, North Carolina</div>`)[0];
+                popup_7bbea2008fa3f4ef3005357861bb5beb.setContent(html_10a5dc1cf94728772250e9056b06142c);
+            
+        
+
+        marker_60c8e328554a9fc0e46d9ffd40b8b5bf.bindPopup(popup_7bbea2008fa3f4ef3005357861bb5beb)
+        ;
+
+        
+    
+    
+            marker_60c8e328554a9fc0e46d9ffd40b8b5bf.bindTooltip(
+                `<div>
+                     Durham Bulls
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_60c8e328554a9fc0e46d9ffd40b8b5bf.setIcon(icon_5759c34330c6c79d6b624ab68918edfd);
+            
+    
+            var marker_8f29b51860f232063ec2c364310bf275 = L.marker(
+                [33.9566391, -83.9890066],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_d900fe6490f92428aa9033bb889bc931 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_91705968b81e0aed1eb314c6a28c8256 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2c9036ef3c932384cb25459312c8b1b6 = $(`<div id="html_2c9036ef3c932384cb25459312c8b1b6" style="width: 100.0%; height: 100.0%;">Lawrenceville, Georgia</div>`)[0];
+                popup_91705968b81e0aed1eb314c6a28c8256.setContent(html_2c9036ef3c932384cb25459312c8b1b6);
+            
+        
+
+        marker_8f29b51860f232063ec2c364310bf275.bindPopup(popup_91705968b81e0aed1eb314c6a28c8256)
+        ;
+
+        
+    
+    
+            marker_8f29b51860f232063ec2c364310bf275.bindTooltip(
+                `<div>
+                     Gwinnett Stripers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8f29b51860f232063ec2c364310bf275.setIcon(icon_d900fe6490f92428aa9033bb889bc931);
+            
+    
+            var marker_45191127b8bf29c1a02598ee435858d0 = L.marker(
+                [39.7683331, -86.1583502],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_cffd36a6380b8438ca04ac78fc1e7615 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cd5f0c96fe06038252ac6b4a68133dde = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ce7e6966395356e3707ef7d83b759611 = $(`<div id="html_ce7e6966395356e3707ef7d83b759611" style="width: 100.0%; height: 100.0%;">Indianapolis, Indiana</div>`)[0];
+                popup_cd5f0c96fe06038252ac6b4a68133dde.setContent(html_ce7e6966395356e3707ef7d83b759611);
+            
+        
+
+        marker_45191127b8bf29c1a02598ee435858d0.bindPopup(popup_cd5f0c96fe06038252ac6b4a68133dde)
+        ;
+
+        
+    
+    
+            marker_45191127b8bf29c1a02598ee435858d0.bindTooltip(
+                `<div>
+                     Indianapolis Indians
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_45191127b8bf29c1a02598ee435858d0.setIcon(icon_cffd36a6380b8438ca04ac78fc1e7615);
+            
+    
+            var marker_81b9f213cbdb5533c0a8232080511e4b = L.marker(
+                [41.5868654, -93.6249494],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_1c7a5428858ca45c047240d15603fa15 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d0f53f17bd6be3b48e8849ca0988477f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fd318de584db817520dbfb3cc8c34d94 = $(`<div id="html_fd318de584db817520dbfb3cc8c34d94" style="width: 100.0%; height: 100.0%;">Des Moines, Iowa</div>`)[0];
+                popup_d0f53f17bd6be3b48e8849ca0988477f.setContent(html_fd318de584db817520dbfb3cc8c34d94);
+            
+        
+
+        marker_81b9f213cbdb5533c0a8232080511e4b.bindPopup(popup_d0f53f17bd6be3b48e8849ca0988477f)
+        ;
+
+        
+    
+    
+            marker_81b9f213cbdb5533c0a8232080511e4b.bindTooltip(
+                `<div>
+                     Iowa Cubs
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_81b9f213cbdb5533c0a8232080511e4b.setIcon(icon_1c7a5428858ca45c047240d15603fa15);
+            
+    
+            var marker_27b1da218aa62313da76c030f872c34e = L.marker(
+                [30.3321838, -81.655651],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_df3ac0b5b4216aad9e06f673690bd4cc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a9ee0253822251930ef808c8f9c6914e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_aa281cf3d5cbc2b7de51b1f0c9219d1c = $(`<div id="html_aa281cf3d5cbc2b7de51b1f0c9219d1c" style="width: 100.0%; height: 100.0%;">Jacksonville, Florida</div>`)[0];
+                popup_a9ee0253822251930ef808c8f9c6914e.setContent(html_aa281cf3d5cbc2b7de51b1f0c9219d1c);
+            
+        
+
+        marker_27b1da218aa62313da76c030f872c34e.bindPopup(popup_a9ee0253822251930ef808c8f9c6914e)
+        ;
+
+        
+    
+    
+            marker_27b1da218aa62313da76c030f872c34e.bindTooltip(
+                `<div>
+                     Jacksonville Jumbo Shrimp
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_27b1da218aa62313da76c030f872c34e.setIcon(icon_df3ac0b5b4216aad9e06f673690bd4cc);
+            
+    
+            var marker_5a61fcfc60c75b6f2d96cdd3aa2c3658 = L.marker(
+                [40.6022552, -75.4716115],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_a5e28160468e4abe8111f7b7b7b32767 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ab8b76ce30b2773d89b4adb59bc51a66 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_acd118e99e36824425c06ca6adfcd89c = $(`<div id="html_acd118e99e36824425c06ca6adfcd89c" style="width: 100.0%; height: 100.0%;">Allentown, Pennsylvania</div>`)[0];
+                popup_ab8b76ce30b2773d89b4adb59bc51a66.setContent(html_acd118e99e36824425c06ca6adfcd89c);
+            
+        
+
+        marker_5a61fcfc60c75b6f2d96cdd3aa2c3658.bindPopup(popup_ab8b76ce30b2773d89b4adb59bc51a66)
+        ;
+
+        
+    
+    
+            marker_5a61fcfc60c75b6f2d96cdd3aa2c3658.bindTooltip(
+                `<div>
+                     Lehigh Valley IronPigs
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5a61fcfc60c75b6f2d96cdd3aa2c3658.setIcon(icon_a5e28160468e4abe8111f7b7b7b32767);
+            
+    
+            var marker_f640620fe3550d06c184e01e2efbd62c = L.marker(
+                [38.2542376, -85.759407],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_ee49d9e88d46ece287782e3d47842ce7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1bd32b50d47135241ceaba6c7bad3a6c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eb305c0ec46a7bd1870df82eca05f258 = $(`<div id="html_eb305c0ec46a7bd1870df82eca05f258" style="width: 100.0%; height: 100.0%;">Louisville, Kentucky</div>`)[0];
+                popup_1bd32b50d47135241ceaba6c7bad3a6c.setContent(html_eb305c0ec46a7bd1870df82eca05f258);
+            
+        
+
+        marker_f640620fe3550d06c184e01e2efbd62c.bindPopup(popup_1bd32b50d47135241ceaba6c7bad3a6c)
+        ;
+
+        
+    
+    
+            marker_f640620fe3550d06c184e01e2efbd62c.bindTooltip(
+                `<div>
+                     Louisville Bats
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f640620fe3550d06c184e01e2efbd62c.setIcon(icon_ee49d9e88d46ece287782e3d47842ce7);
+            
+    
+            var marker_68d078631bcdd9ccc9586662c7c69e32 = L.marker(
+                [35.1460249, -90.0517638],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_7d64d1ee66b558bf3f6d6ed3022a3365 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fdc65a49b1df8fc9f03316da2b8e5ae6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_461b5c4f984bd9cd3402f79d62de8da8 = $(`<div id="html_461b5c4f984bd9cd3402f79d62de8da8" style="width: 100.0%; height: 100.0%;">Memphis, Tennessee</div>`)[0];
+                popup_fdc65a49b1df8fc9f03316da2b8e5ae6.setContent(html_461b5c4f984bd9cd3402f79d62de8da8);
+            
+        
+
+        marker_68d078631bcdd9ccc9586662c7c69e32.bindPopup(popup_fdc65a49b1df8fc9f03316da2b8e5ae6)
+        ;
+
+        
+    
+    
+            marker_68d078631bcdd9ccc9586662c7c69e32.bindTooltip(
+                `<div>
+                     Memphis Redbirds
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_68d078631bcdd9ccc9586662c7c69e32.setIcon(icon_7d64d1ee66b558bf3f6d6ed3022a3365);
+            
+    
+            var marker_79cdfffbbac7b0bfe60a6a3bd7af9515 = L.marker(
+                [36.1622767, -86.7742984],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_130d71131f0dbfb7e0830fdde14442f6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f5f124e59504bdb0ddc211dd9e4ad6fa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f63de382e6c2b8a154b844406b51ee4a = $(`<div id="html_f63de382e6c2b8a154b844406b51ee4a" style="width: 100.0%; height: 100.0%;">Nashville, Tennessee</div>`)[0];
+                popup_f5f124e59504bdb0ddc211dd9e4ad6fa.setContent(html_f63de382e6c2b8a154b844406b51ee4a);
+            
+        
+
+        marker_79cdfffbbac7b0bfe60a6a3bd7af9515.bindPopup(popup_f5f124e59504bdb0ddc211dd9e4ad6fa)
+        ;
+
+        
+    
+    
+            marker_79cdfffbbac7b0bfe60a6a3bd7af9515.bindTooltip(
+                `<div>
+                     Nashville Sounds
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_79cdfffbbac7b0bfe60a6a3bd7af9515.setIcon(icon_130d71131f0dbfb7e0830fdde14442f6);
+            
+    
+            var marker_c57262cc4a40632016891f3055531e89 = L.marker(
+                [36.8493695, -76.2899539],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_ccf2290338ae097172e9f736ce4c73bf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6bc8dcdb64b1d986f0698528b8628940 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6df946a0367c6a63273692fb05a7c411 = $(`<div id="html_6df946a0367c6a63273692fb05a7c411" style="width: 100.0%; height: 100.0%;">Norfolk, Virginia</div>`)[0];
+                popup_6bc8dcdb64b1d986f0698528b8628940.setContent(html_6df946a0367c6a63273692fb05a7c411);
+            
+        
+
+        marker_c57262cc4a40632016891f3055531e89.bindPopup(popup_6bc8dcdb64b1d986f0698528b8628940)
+        ;
+
+        
+    
+    
+            marker_c57262cc4a40632016891f3055531e89.bindTooltip(
+                `<div>
+                     Norfolk Tides
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c57262cc4a40632016891f3055531e89.setIcon(icon_ccf2290338ae097172e9f736ce4c73bf);
+            
+    
+            var marker_6051e7ad841a1090ad931fbfd38a0428 = L.marker(
+                [41.1544433, -96.0422378],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_24e0fc8c7d0f83215fcf18061fb9f385 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d8635d08f062264d39ec6c707df72842 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_837db3f1f61cd1cfcbf36cfd837a9d52 = $(`<div id="html_837db3f1f61cd1cfcbf36cfd837a9d52" style="width: 100.0%; height: 100.0%;">Papillion, Nebraska</div>`)[0];
+                popup_d8635d08f062264d39ec6c707df72842.setContent(html_837db3f1f61cd1cfcbf36cfd837a9d52);
+            
+        
+
+        marker_6051e7ad841a1090ad931fbfd38a0428.bindPopup(popup_d8635d08f062264d39ec6c707df72842)
+        ;
+
+        
+    
+    
+            marker_6051e7ad841a1090ad931fbfd38a0428.bindTooltip(
+                `<div>
+                     Omaha Storm Chasers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6051e7ad841a1090ad931fbfd38a0428.setIcon(icon_24e0fc8c7d0f83215fcf18061fb9f385);
+            
+    
+            var marker_a714229f52e48fc0c1a472b8ba6a215b = L.marker(
+                [43.157285, -77.615214],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_88a22e5e03b3b8ac93f6bd62450d73ce = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fce89a8a7ba8345fbd0d23bb7d4b7152 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_261e1e4d013c3303eaf54d37162629d0 = $(`<div id="html_261e1e4d013c3303eaf54d37162629d0" style="width: 100.0%; height: 100.0%;">Rochester, New York</div>`)[0];
+                popup_fce89a8a7ba8345fbd0d23bb7d4b7152.setContent(html_261e1e4d013c3303eaf54d37162629d0);
+            
+        
+
+        marker_a714229f52e48fc0c1a472b8ba6a215b.bindPopup(popup_fce89a8a7ba8345fbd0d23bb7d4b7152)
+        ;
+
+        
+    
+    
+            marker_a714229f52e48fc0c1a472b8ba6a215b.bindTooltip(
+                `<div>
+                     Rochester Red Wings
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a714229f52e48fc0c1a472b8ba6a215b.setIcon(icon_88a22e5e03b3b8ac93f6bd62450d73ce);
+            
+    
+            var marker_79aa4c9442c3a3603c57c98f001d28ab = L.marker(
+                [41.353413, -75.7382478],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_6cd008486f38dfadd1ac653306fd41ed = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_28df75694f9ab22f8a635c6684f0529b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_caae54cb8cbba41c192a84916fea8789 = $(`<div id="html_caae54cb8cbba41c192a84916fea8789" style="width: 100.0%; height: 100.0%;">Moosic, Pennsylvania</div>`)[0];
+                popup_28df75694f9ab22f8a635c6684f0529b.setContent(html_caae54cb8cbba41c192a84916fea8789);
+            
+        
+
+        marker_79aa4c9442c3a3603c57c98f001d28ab.bindPopup(popup_28df75694f9ab22f8a635c6684f0529b)
+        ;
+
+        
+    
+    
+            marker_79aa4c9442c3a3603c57c98f001d28ab.bindTooltip(
+                `<div>
+                     Scranton/Wilkes-Barre RailRiders
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_79aa4c9442c3a3603c57c98f001d28ab.setIcon(icon_6cd008486f38dfadd1ac653306fd41ed);
+            
+    
+            var marker_ab25bc10df5b8c60cf57f91c3fa8df1b = L.marker(
+                [44.9497487, -93.0931028],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_f8a4232f490eeee5e534fe20f79106c0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_45ccc7fffaffcb82ed5ce2d017d29a06 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_499f6e5ac16fc001deb4f39495ca895d = $(`<div id="html_499f6e5ac16fc001deb4f39495ca895d" style="width: 100.0%; height: 100.0%;">Saint Paul, Minnesota</div>`)[0];
+                popup_45ccc7fffaffcb82ed5ce2d017d29a06.setContent(html_499f6e5ac16fc001deb4f39495ca895d);
+            
+        
+
+        marker_ab25bc10df5b8c60cf57f91c3fa8df1b.bindPopup(popup_45ccc7fffaffcb82ed5ce2d017d29a06)
+        ;
+
+        
+    
+    
+            marker_ab25bc10df5b8c60cf57f91c3fa8df1b.bindTooltip(
+                `<div>
+                     St. Paul Saints
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ab25bc10df5b8c60cf57f91c3fa8df1b.setIcon(icon_f8a4232f490eeee5e534fe20f79106c0);
+            
+    
+            var marker_760166f57bf59b5c6a8c01fd2660e5dd = L.marker(
+                [43.0481221, -76.1474244],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_2308679f0315a19a620a38723c086ee5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f7f9fdc2971ecc678d530ab61d45709f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ff438fd0715cb35be826bde45c243ed6 = $(`<div id="html_ff438fd0715cb35be826bde45c243ed6" style="width: 100.0%; height: 100.0%;">Syracuse, New York</div>`)[0];
+                popup_f7f9fdc2971ecc678d530ab61d45709f.setContent(html_ff438fd0715cb35be826bde45c243ed6);
+            
+        
+
+        marker_760166f57bf59b5c6a8c01fd2660e5dd.bindPopup(popup_f7f9fdc2971ecc678d530ab61d45709f)
+        ;
+
+        
+    
+    
+            marker_760166f57bf59b5c6a8c01fd2660e5dd.bindTooltip(
+                `<div>
+                     Syracuse Mets
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_760166f57bf59b5c6a8c01fd2660e5dd.setIcon(icon_2308679f0315a19a620a38723c086ee5);
+            
+    
+            var marker_af99dc52066aad383b3c767df8b21c2e = L.marker(
+                [41.6529143, -83.5378173],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_fc7263aea243723e2cd5504f2a06bebb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_677363162477b4df97ec9c165a3f7d2b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6b5c95a4fc89e1f3dde36266f02cb6d1 = $(`<div id="html_6b5c95a4fc89e1f3dde36266f02cb6d1" style="width: 100.0%; height: 100.0%;">Toledo, Ohio</div>`)[0];
+                popup_677363162477b4df97ec9c165a3f7d2b.setContent(html_6b5c95a4fc89e1f3dde36266f02cb6d1);
+            
+        
+
+        marker_af99dc52066aad383b3c767df8b21c2e.bindPopup(popup_677363162477b4df97ec9c165a3f7d2b)
+        ;
+
+        
+    
+    
+            marker_af99dc52066aad383b3c767df8b21c2e.bindTooltip(
+                `<div>
+                     Toledo Mud Hens
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_af99dc52066aad383b3c767df8b21c2e.setIcon(icon_fc7263aea243723e2cd5504f2a06bebb);
+            
+    
+            var marker_cd8e16ae7bbde6d7e5dda9d6bbe40105 = L.marker(
+                [42.2625621, -71.8018877],
+                {
+}
+            ).addTo(feature_group_053281746217f96c810c53a964b2409f);
+        
+    
+            var icon_25e5dac9a7599b8b59bac66366a68fb2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_75a3d05632fdf4a32afba32086cd2bf0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_81e2cbe7d3a333f424184c48e15f7c61 = $(`<div id="html_81e2cbe7d3a333f424184c48e15f7c61" style="width: 100.0%; height: 100.0%;">Worcester, Massachusetts</div>`)[0];
+                popup_75a3d05632fdf4a32afba32086cd2bf0.setContent(html_81e2cbe7d3a333f424184c48e15f7c61);
+            
+        
+
+        marker_cd8e16ae7bbde6d7e5dda9d6bbe40105.bindPopup(popup_75a3d05632fdf4a32afba32086cd2bf0)
+        ;
+
+        
+    
+    
+            marker_cd8e16ae7bbde6d7e5dda9d6bbe40105.bindTooltip(
+                `<div>
+                     Worcester Red Sox
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cd8e16ae7bbde6d7e5dda9d6bbe40105.setIcon(icon_25e5dac9a7599b8b59bac66366a68fb2);
+            
+    
+            feature_group_053281746217f96c810c53a964b2409f.addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+        
+    
+            var feature_group_41451e272ee06a1883ac38df61874cd1 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_398c090b446775b9676f5ad780278e9d = L.marker(
+                [35.0841034, -106.650985],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_31cb0fbc3edc4e2b6345056fc1ebda0d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6ec06bdf48b7beb3c8383b128494b52e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c511932e45996d2ef0793e0f426d0078 = $(`<div id="html_c511932e45996d2ef0793e0f426d0078" style="width: 100.0%; height: 100.0%;">Albuquerque, New Mexico</div>`)[0];
+                popup_6ec06bdf48b7beb3c8383b128494b52e.setContent(html_c511932e45996d2ef0793e0f426d0078);
+            
+        
+
+        marker_398c090b446775b9676f5ad780278e9d.bindPopup(popup_6ec06bdf48b7beb3c8383b128494b52e)
+        ;
+
+        
+    
+    
+            marker_398c090b446775b9676f5ad780278e9d.bindTooltip(
+                `<div>
+                     Albuquerque Isotopes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_398c090b446775b9676f5ad780278e9d.setIcon(icon_31cb0fbc3edc4e2b6345056fc1ebda0d);
+            
+    
+            var marker_b439d5cfa16b35efb887c7734aef3c8c = L.marker(
+                [31.7601164, -106.4870404],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_2e51ade78995146495f5f055b57db05b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_81962994dea65e8916682514418a5b4e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_40e2961d5ba2c45442669c5c2a3cc2ed = $(`<div id="html_40e2961d5ba2c45442669c5c2a3cc2ed" style="width: 100.0%; height: 100.0%;">El Paso, Texas</div>`)[0];
+                popup_81962994dea65e8916682514418a5b4e.setContent(html_40e2961d5ba2c45442669c5c2a3cc2ed);
+            
+        
+
+        marker_b439d5cfa16b35efb887c7734aef3c8c.bindPopup(popup_81962994dea65e8916682514418a5b4e)
+        ;
+
+        
+    
+    
+            marker_b439d5cfa16b35efb887c7734aef3c8c.bindTooltip(
+                `<div>
+                     El Paso Chihuahuas
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b439d5cfa16b35efb887c7734aef3c8c.setIcon(icon_2e51ade78995146495f5f055b57db05b);
+            
+    
+            var marker_244813199e94439e63010f4195faf1e3 = L.marker(
+                [36.1674263, -115.1484131],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_966e7eb0404ab732bd43931ebcda9252 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a2f646f90bbc2de525560e661376b68a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f8fe4a2cc7a2db422a44bcb04a88834 = $(`<div id="html_5f8fe4a2cc7a2db422a44bcb04a88834" style="width: 100.0%; height: 100.0%;">Las Vegas, Nevada</div>`)[0];
+                popup_a2f646f90bbc2de525560e661376b68a.setContent(html_5f8fe4a2cc7a2db422a44bcb04a88834);
+            
+        
+
+        marker_244813199e94439e63010f4195faf1e3.bindPopup(popup_a2f646f90bbc2de525560e661376b68a)
+        ;
+
+        
+    
+    
+            marker_244813199e94439e63010f4195faf1e3.bindTooltip(
+                `<div>
+                     Las Vegas Aviators
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_244813199e94439e63010f4195faf1e3.setIcon(icon_966e7eb0404ab732bd43931ebcda9252);
+            
+    
+            var marker_8726a3b00243413ac93b13b5516fd03d = L.marker(
+                [35.4729886, -97.5170536],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_dabb9793b8c0bf20cb699f2ffe083f24 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e39f1d41446746be31a0d8b0c5348d3d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c4147e3b6570acd088a7c887d2d08c4a = $(`<div id="html_c4147e3b6570acd088a7c887d2d08c4a" style="width: 100.0%; height: 100.0%;">Oklahoma City, Oklahoma</div>`)[0];
+                popup_e39f1d41446746be31a0d8b0c5348d3d.setContent(html_c4147e3b6570acd088a7c887d2d08c4a);
+            
+        
+
+        marker_8726a3b00243413ac93b13b5516fd03d.bindPopup(popup_e39f1d41446746be31a0d8b0c5348d3d)
+        ;
+
+        
+    
+    
+            marker_8726a3b00243413ac93b13b5516fd03d.bindTooltip(
+                `<div>
+                     Oklahoma City Comets
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8726a3b00243413ac93b13b5516fd03d.setIcon(icon_dabb9793b8c0bf20cb699f2ffe083f24);
+            
+    
+            var marker_ee614b3b9b5bf59b12ff56c91c606f41 = L.marker(
+                [39.5261788, -119.812658],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_08ce2fc69d18d44722c79d52926d7ce6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e7e9009fe1cb10a15dd5a989f371b812 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a9b7298090b0e62b35c3aaa8985e1fb4 = $(`<div id="html_a9b7298090b0e62b35c3aaa8985e1fb4" style="width: 100.0%; height: 100.0%;">Reno, Nevada</div>`)[0];
+                popup_e7e9009fe1cb10a15dd5a989f371b812.setContent(html_a9b7298090b0e62b35c3aaa8985e1fb4);
+            
+        
+
+        marker_ee614b3b9b5bf59b12ff56c91c606f41.bindPopup(popup_e7e9009fe1cb10a15dd5a989f371b812)
+        ;
+
+        
+    
+    
+            marker_ee614b3b9b5bf59b12ff56c91c606f41.bindTooltip(
+                `<div>
+                     Reno Aces
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ee614b3b9b5bf59b12ff56c91c606f41.setIcon(icon_08ce2fc69d18d44722c79d52926d7ce6);
+            
+    
+            var marker_329e72da2ace6d5c317634185d76b988 = L.marker(
+                [30.5085915, -97.6788056],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_bf989371b351a0cc2d1acef3e3c0488c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6d92c7bd78a319b8435e953fb19e4e11 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_32d2d3ddeecd2ccd1ac562e8aa4cb9c3 = $(`<div id="html_32d2d3ddeecd2ccd1ac562e8aa4cb9c3" style="width: 100.0%; height: 100.0%;">Round Rock, Texas</div>`)[0];
+                popup_6d92c7bd78a319b8435e953fb19e4e11.setContent(html_32d2d3ddeecd2ccd1ac562e8aa4cb9c3);
+            
+        
+
+        marker_329e72da2ace6d5c317634185d76b988.bindPopup(popup_6d92c7bd78a319b8435e953fb19e4e11)
+        ;
+
+        
+    
+    
+            marker_329e72da2ace6d5c317634185d76b988.bindTooltip(
+                `<div>
+                     Round Rock Express
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_329e72da2ace6d5c317634185d76b988.setIcon(icon_bf989371b351a0cc2d1acef3e3c0488c);
+            
+    
+            var marker_0ff56a34cd49c00b6638f14927581e7b = L.marker(
+                [38.5804609, -121.530234],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_9e4c9120d4e5ae3704e55697a4ba6a00 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5a6c46ed952acce302ff610ca2a882a0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6235c0bc7597d76bafa80b2a0249f70b = $(`<div id="html_6235c0bc7597d76bafa80b2a0249f70b" style="width: 100.0%; height: 100.0%;">West Sacramento, California</div>`)[0];
+                popup_5a6c46ed952acce302ff610ca2a882a0.setContent(html_6235c0bc7597d76bafa80b2a0249f70b);
+            
+        
+
+        marker_0ff56a34cd49c00b6638f14927581e7b.bindPopup(popup_5a6c46ed952acce302ff610ca2a882a0)
+        ;
+
+        
+    
+    
+            marker_0ff56a34cd49c00b6638f14927581e7b.bindTooltip(
+                `<div>
+                     Sacramento River Cats
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0ff56a34cd49c00b6638f14927581e7b.setIcon(icon_9e4c9120d4e5ae3704e55697a4ba6a00);
+            
+    
+            var marker_c86edb39887312d88b85dcda8260c17a = L.marker(
+                [40.5584882, -111.9367107],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_d1f6039d539125baab4f3a804a946218 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c5fe72abd3f2d16a6359b3b24a29a2aa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ee0c5595c495abb5fca8a56e8a891446 = $(`<div id="html_ee0c5595c495abb5fca8a56e8a891446" style="width: 100.0%; height: 100.0%;">South Jordan, Utah</div>`)[0];
+                popup_c5fe72abd3f2d16a6359b3b24a29a2aa.setContent(html_ee0c5595c495abb5fca8a56e8a891446);
+            
+        
+
+        marker_c86edb39887312d88b85dcda8260c17a.bindPopup(popup_c5fe72abd3f2d16a6359b3b24a29a2aa)
+        ;
+
+        
+    
+    
+            marker_c86edb39887312d88b85dcda8260c17a.bindTooltip(
+                `<div>
+                     Salt Lake Bees
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c86edb39887312d88b85dcda8260c17a.setIcon(icon_d1f6039d539125baab4f3a804a946218);
+            
+    
+            var marker_3919cfce20c6e3345ead80445162a643 = L.marker(
+                [29.6196787, -95.6349463],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_7b7814dc85949575b7ef0195377a1a0f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6b10f49bb2ea4e958eaf2f5825cfb73f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e480dbc3cb6cb72d4a456884fec98955 = $(`<div id="html_e480dbc3cb6cb72d4a456884fec98955" style="width: 100.0%; height: 100.0%;">Sugar Land, Texas</div>`)[0];
+                popup_6b10f49bb2ea4e958eaf2f5825cfb73f.setContent(html_e480dbc3cb6cb72d4a456884fec98955);
+            
+        
+
+        marker_3919cfce20c6e3345ead80445162a643.bindPopup(popup_6b10f49bb2ea4e958eaf2f5825cfb73f)
+        ;
+
+        
+    
+    
+            marker_3919cfce20c6e3345ead80445162a643.bindTooltip(
+                `<div>
+                     Sugar Land Space Cowboys
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3919cfce20c6e3345ead80445162a643.setIcon(icon_7b7814dc85949575b7ef0195377a1a0f);
+            
+    
+            var marker_b2a5aa10597f2379edd272f563c7bf5b = L.marker(
+                [47.2455013, -122.438329],
+                {
+}
+            ).addTo(feature_group_41451e272ee06a1883ac38df61874cd1);
+        
+    
+            var icon_c4b73cc533ce16eee059f9419339ed4f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_19ea87b0b35fbb6b4dcef36e684f73c2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9bcae21fe76e05731d1e1c9da1e9cc78 = $(`<div id="html_9bcae21fe76e05731d1e1c9da1e9cc78" style="width: 100.0%; height: 100.0%;">Tacoma, Washington</div>`)[0];
+                popup_19ea87b0b35fbb6b4dcef36e684f73c2.setContent(html_9bcae21fe76e05731d1e1c9da1e9cc78);
+            
+        
+
+        marker_b2a5aa10597f2379edd272f563c7bf5b.bindPopup(popup_19ea87b0b35fbb6b4dcef36e684f73c2)
+        ;
+
+        
+    
+    
+            marker_b2a5aa10597f2379edd272f563c7bf5b.bindTooltip(
+                `<div>
+                     Tacoma Rainiers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b2a5aa10597f2379edd272f563c7bf5b.setIcon(icon_c4b73cc533ce16eee059f9419339ed4f);
+            
+    
+            feature_group_41451e272ee06a1883ac38df61874cd1.addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+        
+    
+            var feature_group_bc53ba03c01a661d28ec81264801af15 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_d62182f4b84cf8e64fcefe54f10c1f6a = L.marker(
+                [41.083064, -81.518485],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_22981b0aa8060aa22afdbf4e5785d6a4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2c7e81d1d7a432fe7ebbddec18498448 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3655344210780f8227eee724443f33e9 = $(`<div id="html_3655344210780f8227eee724443f33e9" style="width: 100.0%; height: 100.0%;">Akron, Ohio</div>`)[0];
+                popup_2c7e81d1d7a432fe7ebbddec18498448.setContent(html_3655344210780f8227eee724443f33e9);
+            
+        
+
+        marker_d62182f4b84cf8e64fcefe54f10c1f6a.bindPopup(popup_2c7e81d1d7a432fe7ebbddec18498448)
+        ;
+
+        
+    
+    
+            marker_d62182f4b84cf8e64fcefe54f10c1f6a.bindTooltip(
+                `<div>
+                     Akron RubberDucks
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d62182f4b84cf8e64fcefe54f10c1f6a.setIcon(icon_22981b0aa8060aa22afdbf4e5785d6a4);
+            
+    
+            var marker_1a4ad4fb0d7d8140307c234686bd5a09 = L.marker(
+                [40.5193586, -78.3968299],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_cb56aa33f71a23663abad73ad8cb3c9d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4ebd9dbdd832dc1a02253619b2314b62 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_acd507dc56d1935cbbf19c8daa23fad8 = $(`<div id="html_acd507dc56d1935cbbf19c8daa23fad8" style="width: 100.0%; height: 100.0%;">Altoona, Pennsylvania</div>`)[0];
+                popup_4ebd9dbdd832dc1a02253619b2314b62.setContent(html_acd507dc56d1935cbbf19c8daa23fad8);
+            
+        
+
+        marker_1a4ad4fb0d7d8140307c234686bd5a09.bindPopup(popup_4ebd9dbdd832dc1a02253619b2314b62)
+        ;
+
+        
+    
+    
+            marker_1a4ad4fb0d7d8140307c234686bd5a09.bindTooltip(
+                `<div>
+                     Altoona Curve
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1a4ad4fb0d7d8140307c234686bd5a09.setIcon(icon_cb56aa33f71a23663abad73ad8cb3c9d);
+            
+    
+            var marker_46b9de31db3941777ec41f3de16aca1b = L.marker(
+                [42.098698, -75.9125187],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_d5b1bdc850c763f6d8b8d4c32b445a6b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f1711af603f4170b843ccf7f51ad9f67 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8a5c68db3a444b30351684dba45204d7 = $(`<div id="html_8a5c68db3a444b30351684dba45204d7" style="width: 100.0%; height: 100.0%;">Binghamton, New York</div>`)[0];
+                popup_f1711af603f4170b843ccf7f51ad9f67.setContent(html_8a5c68db3a444b30351684dba45204d7);
+            
+        
+
+        marker_46b9de31db3941777ec41f3de16aca1b.bindPopup(popup_f1711af603f4170b843ccf7f51ad9f67)
+        ;
+
+        
+    
+    
+            marker_46b9de31db3941777ec41f3de16aca1b.bindTooltip(
+                `<div>
+                     Binghamton Rumble Ponies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_46b9de31db3941777ec41f3de16aca1b.setIcon(icon_d5b1bdc850c763f6d8b8d4c32b445a6b);
+            
+    
+            var marker_38117e75af83c0ea82e8226222da1ace = L.marker(
+                [38.9424464, -76.7301718],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_c9b74ec6bb3f5f241cb0e1933c106556 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_01efc2817842a6439c1b6fd31f92ca8c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2ac16b98830684e0cda3499a3a690a69 = $(`<div id="html_2ac16b98830684e0cda3499a3a690a69" style="width: 100.0%; height: 100.0%;">Bowie, Maryland</div>`)[0];
+                popup_01efc2817842a6439c1b6fd31f92ca8c.setContent(html_2ac16b98830684e0cda3499a3a690a69);
+            
+        
+
+        marker_38117e75af83c0ea82e8226222da1ace.bindPopup(popup_01efc2817842a6439c1b6fd31f92ca8c)
+        ;
+
+        
+    
+    
+            marker_38117e75af83c0ea82e8226222da1ace.bindTooltip(
+                `<div>
+                     Chesapeake Baysox
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_38117e75af83c0ea82e8226222da1ace.setIcon(icon_c9b74ec6bb3f5f241cb0e1933c106556);
+            
+    
+            var marker_9df43105077b8a5085cfa87d49da3c97 = L.marker(
+                [42.1294712, -80.0852695],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_56192ba138c73667622dd850838b9bec = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_953fe4c3d8e97578bab256acf083d53c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_03268591681e4a6e37502e82278b6f24 = $(`<div id="html_03268591681e4a6e37502e82278b6f24" style="width: 100.0%; height: 100.0%;">Erie, Pennsylvania</div>`)[0];
+                popup_953fe4c3d8e97578bab256acf083d53c.setContent(html_03268591681e4a6e37502e82278b6f24);
+            
+        
+
+        marker_9df43105077b8a5085cfa87d49da3c97.bindPopup(popup_953fe4c3d8e97578bab256acf083d53c)
+        ;
+
+        
+    
+    
+            marker_9df43105077b8a5085cfa87d49da3c97.bindTooltip(
+                `<div>
+                     Erie SeaWolves
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9df43105077b8a5085cfa87d49da3c97.setIcon(icon_56192ba138c73667622dd850838b9bec);
+            
+    
+            var marker_e3c26bb7f12b24a498a80c592cddb990 = L.marker(
+                [40.2663107, -76.8861122],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_e6e53a15a69565fea56286c4753df1aa = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a7896d94069fcbc6610bf25fcb445b61 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f3a7739d82a3fc66329d636c0f0daf5d = $(`<div id="html_f3a7739d82a3fc66329d636c0f0daf5d" style="width: 100.0%; height: 100.0%;">Harrisburg, Pennsylvania</div>`)[0];
+                popup_a7896d94069fcbc6610bf25fcb445b61.setContent(html_f3a7739d82a3fc66329d636c0f0daf5d);
+            
+        
+
+        marker_e3c26bb7f12b24a498a80c592cddb990.bindPopup(popup_a7896d94069fcbc6610bf25fcb445b61)
+        ;
+
+        
+    
+    
+            marker_e3c26bb7f12b24a498a80c592cddb990.bindTooltip(
+                `<div>
+                     Harrisburg Senators
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e3c26bb7f12b24a498a80c592cddb990.setIcon(icon_e6e53a15a69565fea56286c4753df1aa);
+            
+    
+            var marker_d1223c32a2d9f7887843b602304261aa = L.marker(
+                [41.764582, -72.6908547],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_0b3b7d80ea00136110b840bce93b5874 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2adf4ca2b83b67614a16891fd9886b10 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ef9f861e9ed0580a8ecb9c227bafc199 = $(`<div id="html_ef9f861e9ed0580a8ecb9c227bafc199" style="width: 100.0%; height: 100.0%;">Hartford, Connecticut</div>`)[0];
+                popup_2adf4ca2b83b67614a16891fd9886b10.setContent(html_ef9f861e9ed0580a8ecb9c227bafc199);
+            
+        
+
+        marker_d1223c32a2d9f7887843b602304261aa.bindPopup(popup_2adf4ca2b83b67614a16891fd9886b10)
+        ;
+
+        
+    
+    
+            marker_d1223c32a2d9f7887843b602304261aa.bindTooltip(
+                `<div>
+                     Hartford Yard Goats
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d1223c32a2d9f7887843b602304261aa.setIcon(icon_0b3b7d80ea00136110b840bce93b5874);
+            
+    
+            var marker_5e3926a582a71bea3664d8ce23264833 = L.marker(
+                [42.9956397, -71.4547891],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_903a79185b54d30f8996201a30f1504a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a5949095f79f29a9012e7eafc8261faa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3297f6160b0787b5698d8d3c8e22a131 = $(`<div id="html_3297f6160b0787b5698d8d3c8e22a131" style="width: 100.0%; height: 100.0%;">Manchester, New Hampshire</div>`)[0];
+                popup_a5949095f79f29a9012e7eafc8261faa.setContent(html_3297f6160b0787b5698d8d3c8e22a131);
+            
+        
+
+        marker_5e3926a582a71bea3664d8ce23264833.bindPopup(popup_a5949095f79f29a9012e7eafc8261faa)
+        ;
+
+        
+    
+    
+            marker_5e3926a582a71bea3664d8ce23264833.bindTooltip(
+                `<div>
+                     New Hampshire Fisher Cats
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5e3926a582a71bea3664d8ce23264833.setIcon(icon_903a79185b54d30f8996201a30f1504a);
+            
+    
+            var marker_b129bf48c6cd241231ecb765955e55b9 = L.marker(
+                [43.6573605, -70.2586618],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_27351e0a7a8454157020c06c12c154a1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_32b762c532756608d867d42705201d0a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_758c8197fc24a8eb9e3ffb245dc1cbb5 = $(`<div id="html_758c8197fc24a8eb9e3ffb245dc1cbb5" style="width: 100.0%; height: 100.0%;">Portland, Maine</div>`)[0];
+                popup_32b762c532756608d867d42705201d0a.setContent(html_758c8197fc24a8eb9e3ffb245dc1cbb5);
+            
+        
+
+        marker_b129bf48c6cd241231ecb765955e55b9.bindPopup(popup_32b762c532756608d867d42705201d0a)
+        ;
+
+        
+    
+    
+            marker_b129bf48c6cd241231ecb765955e55b9.bindTooltip(
+                `<div>
+                     Portland Sea Dogs
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b129bf48c6cd241231ecb765955e55b9.setIcon(icon_27351e0a7a8454157020c06c12c154a1);
+            
+    
+            var marker_d88fbee6540ac7a6e9fc9ce00b19582a = L.marker(
+                [40.335345, -75.9279495],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_66298300c3fb6b64d355f98087942b4a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4f3dc9a320aeecd35a8f63870a7996d4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_467cd2260fc04a281054a3a8513290fc = $(`<div id="html_467cd2260fc04a281054a3a8513290fc" style="width: 100.0%; height: 100.0%;">Reading, Pennsylvania</div>`)[0];
+                popup_4f3dc9a320aeecd35a8f63870a7996d4.setContent(html_467cd2260fc04a281054a3a8513290fc);
+            
+        
+
+        marker_d88fbee6540ac7a6e9fc9ce00b19582a.bindPopup(popup_4f3dc9a320aeecd35a8f63870a7996d4)
+        ;
+
+        
+    
+    
+            marker_d88fbee6540ac7a6e9fc9ce00b19582a.bindTooltip(
+                `<div>
+                     Reading Fightin Phils
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d88fbee6540ac7a6e9fc9ce00b19582a.setIcon(icon_66298300c3fb6b64d355f98087942b4a);
+            
+    
+            var marker_26a686b0d20d06db4b727281d09b5230 = L.marker(
+                [37.5385087, -77.43428],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_256de4fd627408e90384238ee5387311 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_db436aafa83d4ca17d287784125752f7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b665a829a4a9264949b92e1f003d93cc = $(`<div id="html_b665a829a4a9264949b92e1f003d93cc" style="width: 100.0%; height: 100.0%;">Richmond, Virginia</div>`)[0];
+                popup_db436aafa83d4ca17d287784125752f7.setContent(html_b665a829a4a9264949b92e1f003d93cc);
+            
+        
+
+        marker_26a686b0d20d06db4b727281d09b5230.bindPopup(popup_db436aafa83d4ca17d287784125752f7)
+        ;
+
+        
+    
+    
+            marker_26a686b0d20d06db4b727281d09b5230.bindTooltip(
+                `<div>
+                     Richmond Flying Squirrels
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_26a686b0d20d06db4b727281d09b5230.setIcon(icon_256de4fd627408e90384238ee5387311);
+            
+    
+            var marker_4333889f5c41d77e252bf02ed101d2ba = L.marker(
+                [40.5598127, -74.5517146],
+                {
+}
+            ).addTo(feature_group_bc53ba03c01a661d28ec81264801af15);
+        
+    
+            var icon_7c2ec182270a1e153beddc4786252181 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1fe54cbc32674e940291b887a31655fc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_471f1a984e1ec57bf9dc9a922f2f4258 = $(`<div id="html_471f1a984e1ec57bf9dc9a922f2f4258" style="width: 100.0%; height: 100.0%;">Bridgewater, New Jersey</div>`)[0];
+                popup_1fe54cbc32674e940291b887a31655fc.setContent(html_471f1a984e1ec57bf9dc9a922f2f4258);
+            
+        
+
+        marker_4333889f5c41d77e252bf02ed101d2ba.bindPopup(popup_1fe54cbc32674e940291b887a31655fc)
+        ;
+
+        
+    
+    
+            marker_4333889f5c41d77e252bf02ed101d2ba.bindTooltip(
+                `<div>
+                     Somerset Patriots
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4333889f5c41d77e252bf02ed101d2ba.setIcon(icon_7c2ec182270a1e153beddc4786252181);
+            
+    
+            feature_group_bc53ba03c01a661d28ec81264801af15.addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+        
+    
+            var feature_group_dad3353598b9e45ae01557d1da367210 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_2504401a6b70c91966b1b05fe82fd7f5 = L.marker(
+                [30.4007626, -88.8893818],
+                {
+}
+            ).addTo(feature_group_dad3353598b9e45ae01557d1da367210);
+        
+    
+            var icon_d2e068b3747c1b72e49a4855313f70a1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "lightgreen",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_690c0181551e2c59d5ec4203c440e01a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4add886730e9669c2817caf888a3b555 = $(`<div id="html_4add886730e9669c2817caf888a3b555" style="width: 100.0%; height: 100.0%;">Biloxi, Mississippi</div>`)[0];
+                popup_690c0181551e2c59d5ec4203c440e01a.setContent(html_4add886730e9669c2817caf888a3b555);
+            
+        
+
+        marker_2504401a6b70c91966b1b05fe82fd7f5.bindPopup(popup_690c0181551e2c59d5ec4203c440e01a)
+        ;
+
+        
+    
+    
+            marker_2504401a6b70c91966b1b05fe82fd7f5.bindTooltip(
+                `<div>
+                     Biloxi Shuckers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2504401a6b70c91966b1b05fe82fd7f5.setIcon(icon_d2e068b3747c1b72e49a4855313f70a1);
+            
+    
+            var marker_ff112ddab6d3b89717fc62a953c28970 = L.marker(
+                [33.5206824, -86.8024326],
+                {
+}
+            ).addTo(feature_group_dad3353598b9e45ae01557d1da367210);
+        
+    
+            var icon_ad8a7cd52ee2c1cfacba50c579c54952 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "lightgreen",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_37acae5bb471b9d34f3ec3f60d2f9e87 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4d9b6ba621273278099873c5a2c8cd0e = $(`<div id="html_4d9b6ba621273278099873c5a2c8cd0e" style="width: 100.0%; height: 100.0%;">Birmingham, Alabama</div>`)[0];
+                popup_37acae5bb471b9d34f3ec3f60d2f9e87.setContent(html_4d9b6ba621273278099873c5a2c8cd0e);
+            
+        
+
+        marker_ff112ddab6d3b89717fc62a953c28970.bindPopup(popup_37acae5bb471b9d34f3ec3f60d2f9e87)
+        ;
+
+        
+    
+    
+            marker_ff112ddab6d3b89717fc62a953c28970.bindTooltip(
+                `<div>
+                     Birmingham Barons
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ff112ddab6d3b89717fc62a953c28970.setIcon(icon_ad8a7cd52ee2c1cfacba50c579c54952);
+            
+    
+            var marker_7a12e9507c79e5935acda0182081689e = L.marker(
+                [35.0457219, -85.3094883],
+                {
+}
+            ).addTo(feature_group_dad3353598b9e45ae01557d1da367210);
+        
+    
+            var icon_d9296d20a8385381e8bea1a8a3f5866f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "lightgreen",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_63aff478e286e6601af8dbc3ba4fa4a0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dfe72842040a5e6cdcb6049f9d762102 = $(`<div id="html_dfe72842040a5e6cdcb6049f9d762102" style="width: 100.0%; height: 100.0%;">Chattanooga, Tennessee</div>`)[0];
+                popup_63aff478e286e6601af8dbc3ba4fa4a0.setContent(html_dfe72842040a5e6cdcb6049f9d762102);
+            
+        
+
+        marker_7a12e9507c79e5935acda0182081689e.bindPopup(popup_63aff478e286e6601af8dbc3ba4fa4a0)
+        ;
+
+        
+    
+    
+            marker_7a12e9507c79e5935acda0182081689e.bindTooltip(
+                `<div>
+                     Chattanooga Lookouts
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7a12e9507c79e5935acda0182081689e.setIcon(icon_d9296d20a8385381e8bea1a8a3f5866f);
+            
+    
+            var marker_fe6964c199b8ff35297164f2974aedaf = L.marker(
+                [32.4610708, -84.9880449],
+                {
+}
+            ).addTo(feature_group_dad3353598b9e45ae01557d1da367210);
+        
+    
+            var icon_0ddf8a23d726a5e7857319380f640453 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "lightgreen",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3dc62bfd537eab1ab3b579923d2bd86f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_428d54e33480098dfb5b8d5a9854af30 = $(`<div id="html_428d54e33480098dfb5b8d5a9854af30" style="width: 100.0%; height: 100.0%;">Columbus, Georgia</div>`)[0];
+                popup_3dc62bfd537eab1ab3b579923d2bd86f.setContent(html_428d54e33480098dfb5b8d5a9854af30);
+            
+        
+
+        marker_fe6964c199b8ff35297164f2974aedaf.bindPopup(popup_3dc62bfd537eab1ab3b579923d2bd86f)
+        ;
+
+        
+    
+    
+            marker_fe6964c199b8ff35297164f2974aedaf.bindTooltip(
+                `<div>
+                     Columbus Clingstones
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fe6964c199b8ff35297164f2974aedaf.setIcon(icon_0ddf8a23d726a5e7857319380f640453);
+            
+    
+            var marker_6bd36e5bc1c5c1f02c0478f49a79fb5e = L.marker(
+                [35.9603948, -83.9210261],
+                {
+}
+            ).addTo(feature_group_dad3353598b9e45ae01557d1da367210);
+        
+    
+            var icon_3d6a23fb4ecf1e5f682f8206c40051c4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "lightgreen",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_da5f5b38aa80cff03da2cd75f6859011 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_be2b664bfcd96244abae2dfb85bd5953 = $(`<div id="html_be2b664bfcd96244abae2dfb85bd5953" style="width: 100.0%; height: 100.0%;">Knoxville, Tennessee</div>`)[0];
+                popup_da5f5b38aa80cff03da2cd75f6859011.setContent(html_be2b664bfcd96244abae2dfb85bd5953);
+            
+        
+
+        marker_6bd36e5bc1c5c1f02c0478f49a79fb5e.bindPopup(popup_da5f5b38aa80cff03da2cd75f6859011)
+        ;
+
+        
+    
+    
+            marker_6bd36e5bc1c5c1f02c0478f49a79fb5e.bindTooltip(
+                `<div>
+                     Knoxville Smokies
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6bd36e5bc1c5c1f02c0478f49a79fb5e.setIcon(icon_3d6a23fb4ecf1e5f682f8206c40051c4);
+            
+    
+            var marker_61b816967eeb257ef8b10a6873d8454b = L.marker(
+                [32.3777111, -86.3090775],
+                {
+}
+            ).addTo(feature_group_dad3353598b9e45ae01557d1da367210);
+        
+    
+            var icon_8d93453039f32f0bbe294adac4ee428a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "lightgreen",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_acae998fead2f6f72f985b45748d0a2b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3b1bff2a5a610afa9a83b6b2e419f3e9 = $(`<div id="html_3b1bff2a5a610afa9a83b6b2e419f3e9" style="width: 100.0%; height: 100.0%;">Montgomery, Alabama</div>`)[0];
+                popup_acae998fead2f6f72f985b45748d0a2b.setContent(html_3b1bff2a5a610afa9a83b6b2e419f3e9);
+            
+        
+
+        marker_61b816967eeb257ef8b10a6873d8454b.bindPopup(popup_acae998fead2f6f72f985b45748d0a2b)
+        ;
+
+        
+    
+    
+            marker_61b816967eeb257ef8b10a6873d8454b.bindTooltip(
+                `<div>
+                     Montgomery Biscuits
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_61b816967eeb257ef8b10a6873d8454b.setIcon(icon_8d93453039f32f0bbe294adac4ee428a);
+            
+    
+            var marker_55e12d221517a786236b5d988644f3ac = L.marker(
+                [30.421309, -87.2169149],
+                {
+}
+            ).addTo(feature_group_dad3353598b9e45ae01557d1da367210);
+        
+    
+            var icon_4b1cb95ae1b1216efca911d6c79a593a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "lightgreen",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8a61f130b6c5d2e7e39f27419d770b3a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_848fedd9bba72c871435fe35e55a1d30 = $(`<div id="html_848fedd9bba72c871435fe35e55a1d30" style="width: 100.0%; height: 100.0%;">Pensacola, Florida</div>`)[0];
+                popup_8a61f130b6c5d2e7e39f27419d770b3a.setContent(html_848fedd9bba72c871435fe35e55a1d30);
+            
+        
+
+        marker_55e12d221517a786236b5d988644f3ac.bindPopup(popup_8a61f130b6c5d2e7e39f27419d770b3a)
+        ;
+
+        
+    
+    
+            marker_55e12d221517a786236b5d988644f3ac.bindTooltip(
+                `<div>
+                     Pensacola Blue Wahoos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_55e12d221517a786236b5d988644f3ac.setIcon(icon_4b1cb95ae1b1216efca911d6c79a593a);
+            
+    
+            var marker_87532efde4d1fcfa578eda5908c7a3d2 = L.marker(
+                [34.7736807, -86.5675095],
+                {
+}
+            ).addTo(feature_group_dad3353598b9e45ae01557d1da367210);
+        
+    
+            var icon_90ff65bee85cf87d873ce0a81473d14c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "lightgreen",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1b5d05f49009e7cc80f2b081322b4de7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_497aea9667500bfdbf28262640316321 = $(`<div id="html_497aea9667500bfdbf28262640316321" style="width: 100.0%; height: 100.0%;">Madison, Alabama</div>`)[0];
+                popup_1b5d05f49009e7cc80f2b081322b4de7.setContent(html_497aea9667500bfdbf28262640316321);
+            
+        
+
+        marker_87532efde4d1fcfa578eda5908c7a3d2.bindPopup(popup_1b5d05f49009e7cc80f2b081322b4de7)
+        ;
+
+        
+    
+    
+            marker_87532efde4d1fcfa578eda5908c7a3d2.bindTooltip(
+                `<div>
+                     Rocket City Trash Pandas
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_87532efde4d1fcfa578eda5908c7a3d2.setIcon(icon_90ff65bee85cf87d873ce0a81473d14c);
+            
+    
+            feature_group_dad3353598b9e45ae01557d1da367210.addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+        
+    
+            var feature_group_5d20a4c4354404abe1017873df57dc91 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_2667f13e0ae007ef189e3563785f3f72 = L.marker(
+                [35.20729, -101.8371192],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_efe4aa43b915c51f0036c74acd518716 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f68440bcba8d17ae93697eedaec386ff = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c9cc2f021cc2c58cea86ed0bf84eed63 = $(`<div id="html_c9cc2f021cc2c58cea86ed0bf84eed63" style="width: 100.0%; height: 100.0%;">Amarillo, Texas</div>`)[0];
+                popup_f68440bcba8d17ae93697eedaec386ff.setContent(html_c9cc2f021cc2c58cea86ed0bf84eed63);
+            
+        
+
+        marker_2667f13e0ae007ef189e3563785f3f72.bindPopup(popup_f68440bcba8d17ae93697eedaec386ff)
+        ;
+
+        
+    
+    
+            marker_2667f13e0ae007ef189e3563785f3f72.bindTooltip(
+                `<div>
+                     Amarillo Sod Poodles
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2667f13e0ae007ef189e3563785f3f72.setIcon(icon_efe4aa43b915c51f0036c74acd518716);
+            
+    
+            var marker_a8a07f836114eb01f0539f2ad813998d = L.marker(
+                [34.769536, -92.2670941],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_d9a12caa6807f38a4067aa6078b59f2a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9710973a0fc4a12001eacf63d38dfb0e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fa6756ce66152b139039ab986535b8f1 = $(`<div id="html_fa6756ce66152b139039ab986535b8f1" style="width: 100.0%; height: 100.0%;">North Little Rock, Arkansas</div>`)[0];
+                popup_9710973a0fc4a12001eacf63d38dfb0e.setContent(html_fa6756ce66152b139039ab986535b8f1);
+            
+        
+
+        marker_a8a07f836114eb01f0539f2ad813998d.bindPopup(popup_9710973a0fc4a12001eacf63d38dfb0e)
+        ;
+
+        
+    
+    
+            marker_a8a07f836114eb01f0539f2ad813998d.bindTooltip(
+                `<div>
+                     Arkansas Travelers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a8a07f836114eb01f0539f2ad813998d.setIcon(icon_d9a12caa6807f38a4067aa6078b59f2a);
+            
+    
+            var marker_380d4eade053106d47430ac810738499 = L.marker(
+                [27.7635302, -97.4033191],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_cc2a6aa960389d1164acddd1bebdf044 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5ff250cafdf8260d14514309dc037acf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1779b2b23b75268e1571b16127ecb274 = $(`<div id="html_1779b2b23b75268e1571b16127ecb274" style="width: 100.0%; height: 100.0%;">Corpus Christi, Texas</div>`)[0];
+                popup_5ff250cafdf8260d14514309dc037acf.setContent(html_1779b2b23b75268e1571b16127ecb274);
+            
+        
+
+        marker_380d4eade053106d47430ac810738499.bindPopup(popup_5ff250cafdf8260d14514309dc037acf)
+        ;
+
+        
+    
+    
+            marker_380d4eade053106d47430ac810738499.bindTooltip(
+                `<div>
+                     Corpus Christi Hooks
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_380d4eade053106d47430ac810738499.setIcon(icon_cc2a6aa960389d1164acddd1bebdf044);
+            
+    
+            var marker_95d3a71b76a387a05a6ea50abd128ef9 = L.marker(
+                [33.1505998, -96.8238183],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_801d4404d57ef45474f44a0b4758f712 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_948ebcaafc2fbd94727272ce2a91ade0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ceabe83b28157041fa4e38b94ce60eb2 = $(`<div id="html_ceabe83b28157041fa4e38b94ce60eb2" style="width: 100.0%; height: 100.0%;">Frisco, Texas</div>`)[0];
+                popup_948ebcaafc2fbd94727272ce2a91ade0.setContent(html_ceabe83b28157041fa4e38b94ce60eb2);
+            
+        
+
+        marker_95d3a71b76a387a05a6ea50abd128ef9.bindPopup(popup_948ebcaafc2fbd94727272ce2a91ade0)
+        ;
+
+        
+    
+    
+            marker_95d3a71b76a387a05a6ea50abd128ef9.bindTooltip(
+                `<div>
+                     Frisco RoughRiders
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_95d3a71b76a387a05a6ea50abd128ef9.setIcon(icon_801d4404d57ef45474f44a0b4758f712);
+            
+    
+            var marker_0d0cfaba9c7334e4d6d983a245ae7934 = L.marker(
+                [31.83688, -102.0103767],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_4fd151980787bba1eeb82a9b3d1f9c4e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cecc4d2ce7175e1e1f68006e01f2d476 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8e4e592d63d8bb8769965a26987cd04a = $(`<div id="html_8e4e592d63d8bb8769965a26987cd04a" style="width: 100.0%; height: 100.0%;">Midland, Texas</div>`)[0];
+                popup_cecc4d2ce7175e1e1f68006e01f2d476.setContent(html_8e4e592d63d8bb8769965a26987cd04a);
+            
+        
+
+        marker_0d0cfaba9c7334e4d6d983a245ae7934.bindPopup(popup_cecc4d2ce7175e1e1f68006e01f2d476)
+        ;
+
+        
+    
+    
+            marker_0d0cfaba9c7334e4d6d983a245ae7934.bindTooltip(
+                `<div>
+                     Midland RockHounds
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0d0cfaba9c7334e4d6d983a245ae7934.setIcon(icon_4fd151980787bba1eeb82a9b3d1f9c4e);
+            
+    
+            var marker_17bc593d38e46b39a36e652914f088af = L.marker(
+                [36.1867442, -94.1288142],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_b4911f7081eb3ab1adb0d10ac6f062ae = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0dd9ec9350aa20e7afa8a4593f51cbd0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_26ac5d35007d7b99295de30561421b28 = $(`<div id="html_26ac5d35007d7b99295de30561421b28" style="width: 100.0%; height: 100.0%;">Springdale, Arkansas</div>`)[0];
+                popup_0dd9ec9350aa20e7afa8a4593f51cbd0.setContent(html_26ac5d35007d7b99295de30561421b28);
+            
+        
+
+        marker_17bc593d38e46b39a36e652914f088af.bindPopup(popup_0dd9ec9350aa20e7afa8a4593f51cbd0)
+        ;
+
+        
+    
+    
+            marker_17bc593d38e46b39a36e652914f088af.bindTooltip(
+                `<div>
+                     Northwest Arkansas Naturals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_17bc593d38e46b39a36e652914f088af.setIcon(icon_b4911f7081eb3ab1adb0d10ac6f062ae);
+            
+    
+            var marker_4fa42e71c37c4411a9bcbc7659349f0d = L.marker(
+                [29.4246002, -98.4951405],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_c79b6afeb35d22ed6c9250896bebd663 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2e9c08277d7bfff8003ecb5d43f037fd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_363830f76c5ad8d9f25b81dcbc42f47f = $(`<div id="html_363830f76c5ad8d9f25b81dcbc42f47f" style="width: 100.0%; height: 100.0%;">San Antonio, Texas</div>`)[0];
+                popup_2e9c08277d7bfff8003ecb5d43f037fd.setContent(html_363830f76c5ad8d9f25b81dcbc42f47f);
+            
+        
+
+        marker_4fa42e71c37c4411a9bcbc7659349f0d.bindPopup(popup_2e9c08277d7bfff8003ecb5d43f037fd)
+        ;
+
+        
+    
+    
+            marker_4fa42e71c37c4411a9bcbc7659349f0d.bindTooltip(
+                `<div>
+                     San Antonio Missions
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4fa42e71c37c4411a9bcbc7659349f0d.setIcon(icon_c79b6afeb35d22ed6c9250896bebd663);
+            
+    
+            var marker_4f2d435d5b48ad5a3f8c1abce83e734e = L.marker(
+                [37.2081729, -93.2922715],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_5aa43e4a8e6fd5af9e4134748261d214 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cc9e2ab519c1747066f825e491b9e3f2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fc0f9d371bbe1fb112e6d80347b4a4a3 = $(`<div id="html_fc0f9d371bbe1fb112e6d80347b4a4a3" style="width: 100.0%; height: 100.0%;">Springfield, Missouri</div>`)[0];
+                popup_cc9e2ab519c1747066f825e491b9e3f2.setContent(html_fc0f9d371bbe1fb112e6d80347b4a4a3);
+            
+        
+
+        marker_4f2d435d5b48ad5a3f8c1abce83e734e.bindPopup(popup_cc9e2ab519c1747066f825e491b9e3f2)
+        ;
+
+        
+    
+    
+            marker_4f2d435d5b48ad5a3f8c1abce83e734e.bindTooltip(
+                `<div>
+                     Springfield Cardinals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4f2d435d5b48ad5a3f8c1abce83e734e.setIcon(icon_5aa43e4a8e6fd5af9e4134748261d214);
+            
+    
+            var marker_934742c6c68becc76e328c349cb2c09b = L.marker(
+                [36.1563122, -95.9927516],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_41c7fe39ffceb1d14af13f4e85cffcb4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5472584e3703d461187036cd8cabe1af = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0922d734a38bc0eedad8cb5b2cb0f4cb = $(`<div id="html_0922d734a38bc0eedad8cb5b2cb0f4cb" style="width: 100.0%; height: 100.0%;">Tulsa, Oklahoma</div>`)[0];
+                popup_5472584e3703d461187036cd8cabe1af.setContent(html_0922d734a38bc0eedad8cb5b2cb0f4cb);
+            
+        
+
+        marker_934742c6c68becc76e328c349cb2c09b.bindPopup(popup_5472584e3703d461187036cd8cabe1af)
+        ;
+
+        
+    
+    
+            marker_934742c6c68becc76e328c349cb2c09b.bindTooltip(
+                `<div>
+                     Tulsa Drillers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_934742c6c68becc76e328c349cb2c09b.setIcon(icon_41c7fe39ffceb1d14af13f4e85cffcb4);
+            
+    
+            var marker_9ab9cba1448c9caffb95b3af52f857a8 = L.marker(
+                [37.6922361, -97.3375448],
+                {
+}
+            ).addTo(feature_group_5d20a4c4354404abe1017873df57dc91);
+        
+    
+            var icon_c9ece7f4f6e6ee46a8db792cb2ef3555 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_622557fdc1458679ffed449577f30742 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_af04b80d25c819533e32c93c7d41f8cf = $(`<div id="html_af04b80d25c819533e32c93c7d41f8cf" style="width: 100.0%; height: 100.0%;">Wichita, Kansas</div>`)[0];
+                popup_622557fdc1458679ffed449577f30742.setContent(html_af04b80d25c819533e32c93c7d41f8cf);
+            
+        
+
+        marker_9ab9cba1448c9caffb95b3af52f857a8.bindPopup(popup_622557fdc1458679ffed449577f30742)
+        ;
+
+        
+    
+    
+            marker_9ab9cba1448c9caffb95b3af52f857a8.bindTooltip(
+                `<div>
+                     Wichita Wind Surge
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9ab9cba1448c9caffb95b3af52f857a8.setIcon(icon_c9ece7f4f6e6ee46a8db792cb2ef3555);
+            
+    
+            feature_group_5d20a4c4354404abe1017873df57dc91.addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+        
+    
+            var feature_group_788df84878a606dfcb2de4e34b426f96 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_fe642e97d62af4ba27ce0e552ef2b8ba = L.marker(
+                [42.5083272, -89.031784],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_ee62f89d3684e2531c41391f8d0c2f18 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bcd5175f9c25be2abb33d6b1a62e6069 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_79da04a9a5f62af3366a4ccd7c4501c9 = $(`<div id="html_79da04a9a5f62af3366a4ccd7c4501c9" style="width: 100.0%; height: 100.0%;">Beloit, Wisconsin</div>`)[0];
+                popup_bcd5175f9c25be2abb33d6b1a62e6069.setContent(html_79da04a9a5f62af3366a4ccd7c4501c9);
+            
+        
+
+        marker_fe642e97d62af4ba27ce0e552ef2b8ba.bindPopup(popup_bcd5175f9c25be2abb33d6b1a62e6069)
+        ;
+
+        
+    
+    
+            marker_fe642e97d62af4ba27ce0e552ef2b8ba.bindTooltip(
+                `<div>
+                     Beloit Sky Carp
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fe642e97d62af4ba27ce0e552ef2b8ba.setIcon(icon_ee62f89d3684e2531c41391f8d0c2f18);
+            
+    
+            var marker_d3610edce5f1ac97fd1b30165d585de5 = L.marker(
+                [41.9758872, -91.6704053],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_4ea8e4649c6b47c446af12892b6f6758 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d28f599293a9f4720e90906aa6094338 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_83e327265bed4ee621a55f0151ab59ee = $(`<div id="html_83e327265bed4ee621a55f0151ab59ee" style="width: 100.0%; height: 100.0%;">Cedar Rapids, Iowa</div>`)[0];
+                popup_d28f599293a9f4720e90906aa6094338.setContent(html_83e327265bed4ee621a55f0151ab59ee);
+            
+        
+
+        marker_d3610edce5f1ac97fd1b30165d585de5.bindPopup(popup_d28f599293a9f4720e90906aa6094338)
+        ;
+
+        
+    
+    
+            marker_d3610edce5f1ac97fd1b30165d585de5.bindTooltip(
+                `<div>
+                     Cedar Rapids Kernels
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d3610edce5f1ac97fd1b30165d585de5.setIcon(icon_4ea8e4649c6b47c446af12892b6f6758);
+            
+    
+            var marker_9becfd4bbce05ad2c0d20c06cd87dbd8 = L.marker(
+                [39.7589478, -84.1916069],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_27a13fd8b12e91656cdd0db9a36f8f97 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_58701a247fe7fa147302a9e9e84a9b17 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3a6ef2466059c2ee15cb2bb6a6c2c32c = $(`<div id="html_3a6ef2466059c2ee15cb2bb6a6c2c32c" style="width: 100.0%; height: 100.0%;">Dayton, Ohio</div>`)[0];
+                popup_58701a247fe7fa147302a9e9e84a9b17.setContent(html_3a6ef2466059c2ee15cb2bb6a6c2c32c);
+            
+        
+
+        marker_9becfd4bbce05ad2c0d20c06cd87dbd8.bindPopup(popup_58701a247fe7fa147302a9e9e84a9b17)
+        ;
+
+        
+    
+    
+            marker_9becfd4bbce05ad2c0d20c06cd87dbd8.bindTooltip(
+                `<div>
+                     Dayton Dragons
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9becfd4bbce05ad2c0d20c06cd87dbd8.setIcon(icon_27a13fd8b12e91656cdd0db9a36f8f97);
+            
+    
+            var marker_2d662d4e6075dd3003ef06ab65922e18 = L.marker(
+                [41.0799898, -85.1386015],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_2ef77276eb1711363289636a0ad5fbdd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_38d5bf9a43bcd7a2fe41a2f135cca8eb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6ec1646aa64ecf710d6e26b48a948973 = $(`<div id="html_6ec1646aa64ecf710d6e26b48a948973" style="width: 100.0%; height: 100.0%;">Fort Wayne, Indiana</div>`)[0];
+                popup_38d5bf9a43bcd7a2fe41a2f135cca8eb.setContent(html_6ec1646aa64ecf710d6e26b48a948973);
+            
+        
+
+        marker_2d662d4e6075dd3003ef06ab65922e18.bindPopup(popup_38d5bf9a43bcd7a2fe41a2f135cca8eb)
+        ;
+
+        
+    
+    
+            marker_2d662d4e6075dd3003ef06ab65922e18.bindTooltip(
+                `<div>
+                     Fort Wayne TinCaps
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2d662d4e6075dd3003ef06ab65922e18.setIcon(icon_2ef77276eb1711363289636a0ad5fbdd);
+            
+    
+            var marker_270eb64c22bc13512a0e7fdfee48802a = L.marker(
+                [43.6155825, -84.2472117],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_cd872ec98a8b884d7b0a88bce37d9126 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2bd8866c0aa9558836b4b2902c1a2abc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7c22e4ed47d0008a56b11f08aae995d3 = $(`<div id="html_7c22e4ed47d0008a56b11f08aae995d3" style="width: 100.0%; height: 100.0%;">Midland, Michigan</div>`)[0];
+                popup_2bd8866c0aa9558836b4b2902c1a2abc.setContent(html_7c22e4ed47d0008a56b11f08aae995d3);
+            
+        
+
+        marker_270eb64c22bc13512a0e7fdfee48802a.bindPopup(popup_2bd8866c0aa9558836b4b2902c1a2abc)
+        ;
+
+        
+    
+    
+            marker_270eb64c22bc13512a0e7fdfee48802a.bindTooltip(
+                `<div>
+                     Great Lakes Loons
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_270eb64c22bc13512a0e7fdfee48802a.setIcon(icon_cd872ec98a8b884d7b0a88bce37d9126);
+            
+    
+            var marker_6b9e11d388f873a862314e265ac697b7 = L.marker(
+                [41.6490337, -81.4378991],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_6179a0d40c3ceabd170c4cf364ecd37e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0eedc50261dd21abfec91975044a6e52 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a9dba1006a3aad1e72b53ebac227425b = $(`<div id="html_a9dba1006a3aad1e72b53ebac227425b" style="width: 100.0%; height: 100.0%;">Eastlake, Ohio</div>`)[0];
+                popup_0eedc50261dd21abfec91975044a6e52.setContent(html_a9dba1006a3aad1e72b53ebac227425b);
+            
+        
+
+        marker_6b9e11d388f873a862314e265ac697b7.bindPopup(popup_0eedc50261dd21abfec91975044a6e52)
+        ;
+
+        
+    
+    
+            marker_6b9e11d388f873a862314e265ac697b7.bindTooltip(
+                `<div>
+                     Lake County Captains
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6b9e11d388f873a862314e265ac697b7.setIcon(icon_6179a0d40c3ceabd170c4cf364ecd37e);
+            
+    
+            var marker_dcdc9f272936b344817e069f4856fbcd = L.marker(
+                [42.7338254, -84.5546295],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_edc9ba56af07d8e8c74f8261a63a6ed3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5d225275aaeff6d7c72f03e379fc7d55 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6a8601d88997d9df9db3a9919f492969 = $(`<div id="html_6a8601d88997d9df9db3a9919f492969" style="width: 100.0%; height: 100.0%;">Lansing, Michigan</div>`)[0];
+                popup_5d225275aaeff6d7c72f03e379fc7d55.setContent(html_6a8601d88997d9df9db3a9919f492969);
+            
+        
+
+        marker_dcdc9f272936b344817e069f4856fbcd.bindPopup(popup_5d225275aaeff6d7c72f03e379fc7d55)
+        ;
+
+        
+    
+    
+            marker_dcdc9f272936b344817e069f4856fbcd.bindTooltip(
+                `<div>
+                     Lansing Lugnuts
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_dcdc9f272936b344817e069f4856fbcd.setIcon(icon_edc9ba56af07d8e8c74f8261a63a6ed3);
+            
+    
+            var marker_617b0b13c27531b7c5d875274bda587c = L.marker(
+                [40.6938609, -89.5891008],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_62d3e3c339f32e089e9103810e4beb07 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9ab6be8483f86cca056efd516c883668 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7b67c1fc5df1e5972cda839573dabdab = $(`<div id="html_7b67c1fc5df1e5972cda839573dabdab" style="width: 100.0%; height: 100.0%;">Peoria, Illinois</div>`)[0];
+                popup_9ab6be8483f86cca056efd516c883668.setContent(html_7b67c1fc5df1e5972cda839573dabdab);
+            
+        
+
+        marker_617b0b13c27531b7c5d875274bda587c.bindPopup(popup_9ab6be8483f86cca056efd516c883668)
+        ;
+
+        
+    
+    
+            marker_617b0b13c27531b7c5d875274bda587c.bindTooltip(
+                `<div>
+                     Peoria Chiefs
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_617b0b13c27531b7c5d875274bda587c.setIcon(icon_62d3e3c339f32e089e9103810e4beb07);
+            
+    
+            var marker_9c5e8a6672153adac32f688a3ed93dc3 = L.marker(
+                [41.5235808, -90.5770967],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_44203ebe3e34f5fe4c7b8c91b4bdb4dd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_62801158431d9c0da7c16d52f4ae10b6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_75964e383eb0236e8a19b3ec27920ab3 = $(`<div id="html_75964e383eb0236e8a19b3ec27920ab3" style="width: 100.0%; height: 100.0%;">Davenport, Iowa</div>`)[0];
+                popup_62801158431d9c0da7c16d52f4ae10b6.setContent(html_75964e383eb0236e8a19b3ec27920ab3);
+            
+        
+
+        marker_9c5e8a6672153adac32f688a3ed93dc3.bindPopup(popup_62801158431d9c0da7c16d52f4ae10b6)
+        ;
+
+        
+    
+    
+            marker_9c5e8a6672153adac32f688a3ed93dc3.bindTooltip(
+                `<div>
+                     Quad Cities River Bandits
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9c5e8a6672153adac32f688a3ed93dc3.setIcon(icon_44203ebe3e34f5fe4c7b8c91b4bdb4dd);
+            
+    
+            var marker_0d141fe89cd17ee4691796e82d038833 = L.marker(
+                [41.6833813, -86.2500066],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_ad1d5dbd7203ade555da1982738d669d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_804e687b850a7bd4b410eff430e07dd0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_15a8adf9cfa6ba995e326fb9e8a9b96e = $(`<div id="html_15a8adf9cfa6ba995e326fb9e8a9b96e" style="width: 100.0%; height: 100.0%;">South Bend, Indiana</div>`)[0];
+                popup_804e687b850a7bd4b410eff430e07dd0.setContent(html_15a8adf9cfa6ba995e326fb9e8a9b96e);
+            
+        
+
+        marker_0d141fe89cd17ee4691796e82d038833.bindPopup(popup_804e687b850a7bd4b410eff430e07dd0)
+        ;
+
+        
+    
+    
+            marker_0d141fe89cd17ee4691796e82d038833.bindTooltip(
+                `<div>
+                     South Bend Cubs
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0d141fe89cd17ee4691796e82d038833.setIcon(icon_ad1d5dbd7203ade555da1982738d669d);
+            
+    
+            var marker_e134ef7cbd8ec61b1a17c9822b48862c = L.marker(
+                [43.0436436, -85.6794889],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_f96c9b8eb736364e2f8f33120773e5f2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d8f428682c19ab51f553d27bc19e30ad = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_49a0b32df96c28e5a87ae1391346b02c = $(`<div id="html_49a0b32df96c28e5a87ae1391346b02c" style="width: 100.0%; height: 100.0%;">Comstock Park, Michigan</div>`)[0];
+                popup_d8f428682c19ab51f553d27bc19e30ad.setContent(html_49a0b32df96c28e5a87ae1391346b02c);
+            
+        
+
+        marker_e134ef7cbd8ec61b1a17c9822b48862c.bindPopup(popup_d8f428682c19ab51f553d27bc19e30ad)
+        ;
+
+        
+    
+    
+            marker_e134ef7cbd8ec61b1a17c9822b48862c.bindTooltip(
+                `<div>
+                     West Michigan Whitecaps
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e134ef7cbd8ec61b1a17c9822b48862c.setIcon(icon_f96c9b8eb736364e2f8f33120773e5f2);
+            
+    
+            var marker_01964f70ed5cca557ff26ced67b8f300 = L.marker(
+                [44.2613967, -88.4069744],
+                {
+}
+            ).addTo(feature_group_788df84878a606dfcb2de4e34b426f96);
+        
+    
+            var icon_1aab2cc79e3d3e8efdfaffb23a191707 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_70ced479b55942ff9cb73306da1a141a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a699f6657028a3c275af20702163274b = $(`<div id="html_a699f6657028a3c275af20702163274b" style="width: 100.0%; height: 100.0%;">Appleton, Wisconsin</div>`)[0];
+                popup_70ced479b55942ff9cb73306da1a141a.setContent(html_a699f6657028a3c275af20702163274b);
+            
+        
+
+        marker_01964f70ed5cca557ff26ced67b8f300.bindPopup(popup_70ced479b55942ff9cb73306da1a141a)
+        ;
+
+        
+    
+    
+            marker_01964f70ed5cca557ff26ced67b8f300.bindTooltip(
+                `<div>
+                     Wisconsin Timber Rattlers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_01964f70ed5cca557ff26ced67b8f300.setIcon(icon_1aab2cc79e3d3e8efdfaffb23a191707);
+            
+    
+            feature_group_788df84878a606dfcb2de4e34b426f96.addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+        
+    
+            var feature_group_0afa02a72633f3aaf2e503de52a02f7a = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_ad8d9ed2b6f55672480d33d4c4e7d93f = L.marker(
+                [35.595363, -82.5508407],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_e312f843608ee81107f5bd842f73c11b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a13b24719e6d8f5b4918509f3025234b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1493c0f965d4303d54dd8e5f1dfbb9ce = $(`<div id="html_1493c0f965d4303d54dd8e5f1dfbb9ce" style="width: 100.0%; height: 100.0%;">Asheville, North Carolina</div>`)[0];
+                popup_a13b24719e6d8f5b4918509f3025234b.setContent(html_1493c0f965d4303d54dd8e5f1dfbb9ce);
+            
+        
+
+        marker_ad8d9ed2b6f55672480d33d4c4e7d93f.bindPopup(popup_a13b24719e6d8f5b4918509f3025234b)
+        ;
+
+        
+    
+    
+            marker_ad8d9ed2b6f55672480d33d4c4e7d93f.bindTooltip(
+                `<div>
+                     Asheville Tourists
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ad8d9ed2b6f55672480d33d4c4e7d93f.setIcon(icon_e312f843608ee81107f5bd842f73c11b);
+            
+    
+            var marker_5bd34294f6a09c2eb56d40b2ecd4de6c = L.marker(
+                [36.9929203, -86.4428677],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_918a3b4945acd600572c583a93204ad0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a875a92c913c120678ba3e79ac2f6a3e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_484b1f5ad05948f2d0a2b888987b91ae = $(`<div id="html_484b1f5ad05948f2d0a2b888987b91ae" style="width: 100.0%; height: 100.0%;">Bowling Green, Kentucky</div>`)[0];
+                popup_a875a92c913c120678ba3e79ac2f6a3e.setContent(html_484b1f5ad05948f2d0a2b888987b91ae);
+            
+        
+
+        marker_5bd34294f6a09c2eb56d40b2ecd4de6c.bindPopup(popup_a875a92c913c120678ba3e79ac2f6a3e)
+        ;
+
+        
+    
+    
+            marker_5bd34294f6a09c2eb56d40b2ecd4de6c.bindTooltip(
+                `<div>
+                     Bowling Green Hot Rods
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5bd34294f6a09c2eb56d40b2ecd4de6c.setIcon(icon_918a3b4945acd600572c583a93204ad0);
+            
+    
+            var marker_4f471a94f261eabb16566ae0f8d9a0a3 = L.marker(
+                [40.6526006, -73.9497211],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_3c40c4fb85782ea3d2683c6ea4f609e6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a22b464ae0c92d464c30a4bab16132f1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1b9aa531fa3db9cbc5b9b68aae8b529f = $(`<div id="html_1b9aa531fa3db9cbc5b9b68aae8b529f" style="width: 100.0%; height: 100.0%;">Brooklyn, New York</div>`)[0];
+                popup_a22b464ae0c92d464c30a4bab16132f1.setContent(html_1b9aa531fa3db9cbc5b9b68aae8b529f);
+            
+        
+
+        marker_4f471a94f261eabb16566ae0f8d9a0a3.bindPopup(popup_a22b464ae0c92d464c30a4bab16132f1)
+        ;
+
+        
+    
+    
+            marker_4f471a94f261eabb16566ae0f8d9a0a3.bindTooltip(
+                `<div>
+                     Brooklyn Cyclones
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4f471a94f261eabb16566ae0f8d9a0a3.setIcon(icon_3c40c4fb85782ea3d2683c6ea4f609e6);
+            
+    
+            var marker_9b11c707c9514e2364e4ad27080d00cb = L.marker(
+                [39.415779, -77.4127562],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_34259810a34cd4cc29c3f8673f12393e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cbf97e460a6427f18d11ad5c0b948469 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e6a2232c0b2bedc297cdba6f187bf053 = $(`<div id="html_e6a2232c0b2bedc297cdba6f187bf053" style="width: 100.0%; height: 100.0%;">Frederick, Maryland</div>`)[0];
+                popup_cbf97e460a6427f18d11ad5c0b948469.setContent(html_e6a2232c0b2bedc297cdba6f187bf053);
+            
+        
+
+        marker_9b11c707c9514e2364e4ad27080d00cb.bindPopup(popup_cbf97e460a6427f18d11ad5c0b948469)
+        ;
+
+        
+    
+    
+            marker_9b11c707c9514e2364e4ad27080d00cb.bindTooltip(
+                `<div>
+                     Frederick Keys
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9b11c707c9514e2364e4ad27080d00cb.setIcon(icon_34259810a34cd4cc29c3f8673f12393e);
+            
+    
+            var marker_3241089b042b3f52e7ffbfd774e58c79 = L.marker(
+                [36.0726355, -79.7919754],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_d32b66d1ee49041a1af1b065f66ba8a9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c2838aa0d5682a441f30b167009c33d9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8c6b1d7912ad2146d9e86dfb5bc9299e = $(`<div id="html_8c6b1d7912ad2146d9e86dfb5bc9299e" style="width: 100.0%; height: 100.0%;">Greensboro, North Carolina</div>`)[0];
+                popup_c2838aa0d5682a441f30b167009c33d9.setContent(html_8c6b1d7912ad2146d9e86dfb5bc9299e);
+            
+        
+
+        marker_3241089b042b3f52e7ffbfd774e58c79.bindPopup(popup_c2838aa0d5682a441f30b167009c33d9)
+        ;
+
+        
+    
+    
+            marker_3241089b042b3f52e7ffbfd774e58c79.bindTooltip(
+                `<div>
+                     Greensboro Grasshoppers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3241089b042b3f52e7ffbfd774e58c79.setIcon(icon_d32b66d1ee49041a1af1b065f66ba8a9);
+            
+    
+            var marker_4612f8377fcae4c52ebce66aacafdbab = L.marker(
+                [34.851354, -82.3984882],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_dce47c890738315600e5af766545ca19 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2c06510a554043c143c14baffeb662c6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2d623e363bd6e0a1b9faf1e4a55ba11a = $(`<div id="html_2d623e363bd6e0a1b9faf1e4a55ba11a" style="width: 100.0%; height: 100.0%;">Greenville, South Carolina</div>`)[0];
+                popup_2c06510a554043c143c14baffeb662c6.setContent(html_2d623e363bd6e0a1b9faf1e4a55ba11a);
+            
+        
+
+        marker_4612f8377fcae4c52ebce66aacafdbab.bindPopup(popup_2c06510a554043c143c14baffeb662c6)
+        ;
+
+        
+    
+    
+            marker_4612f8377fcae4c52ebce66aacafdbab.bindTooltip(
+                `<div>
+                     Greenville Drive
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4612f8377fcae4c52ebce66aacafdbab.setIcon(icon_dce47c890738315600e5af766545ca19);
+            
+    
+            var marker_8a72cb18f88af31dd2d0abc8152fdf59 = L.marker(
+                [34.9498007, -81.9320157],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_bd194aad1363eeac3bb01f3a0052f990 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1a1b10fbe9c8f1408b3b3768f484aed9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_34f5641c64c6af87aa874103d954d2bf = $(`<div id="html_34f5641c64c6af87aa874103d954d2bf" style="width: 100.0%; height: 100.0%;">Spartanburg, South Carolina</div>`)[0];
+                popup_1a1b10fbe9c8f1408b3b3768f484aed9.setContent(html_34f5641c64c6af87aa874103d954d2bf);
+            
+        
+
+        marker_8a72cb18f88af31dd2d0abc8152fdf59.bindPopup(popup_1a1b10fbe9c8f1408b3b3768f484aed9)
+        ;
+
+        
+    
+    
+            marker_8a72cb18f88af31dd2d0abc8152fdf59.bindTooltip(
+                `<div>
+                     Hub City Spartanburgers
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8a72cb18f88af31dd2d0abc8152fdf59.setIcon(icon_bd194aad1363eeac3bb01f3a0052f990);
+            
+    
+            var marker_d67796b84f8348aa71767d45368fcfa2 = L.marker(
+                [41.5965635, -73.9112103],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_5dd2545a4284393f999b53f15aebf015 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2cf4539aa3b46e698988e481dc65b5ea = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5ac812e09d3d4fc68e404d82e6023f9a = $(`<div id="html_5ac812e09d3d4fc68e404d82e6023f9a" style="width: 100.0%; height: 100.0%;">Wappingers Falls, New York</div>`)[0];
+                popup_2cf4539aa3b46e698988e481dc65b5ea.setContent(html_5ac812e09d3d4fc68e404d82e6023f9a);
+            
+        
+
+        marker_d67796b84f8348aa71767d45368fcfa2.bindPopup(popup_2cf4539aa3b46e698988e481dc65b5ea)
+        ;
+
+        
+    
+    
+            marker_d67796b84f8348aa71767d45368fcfa2.bindTooltip(
+                `<div>
+                     Hudson Valley Renegades
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d67796b84f8348aa71767d45368fcfa2.setIcon(icon_5dd2545a4284393f999b53f15aebf015);
+            
+    
+            var marker_2af15be5455d44bd217ebfaa8112efe9 = L.marker(
+                [40.0978929, -74.2176435],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_3dad7231679cd4bc0c63c71605a99b43 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dcc0c97230fa02433df93734bb3847cb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4853763d1f0e49f1e32493d3eb987b07 = $(`<div id="html_4853763d1f0e49f1e32493d3eb987b07" style="width: 100.0%; height: 100.0%;">Lakewood, New Jersey</div>`)[0];
+                popup_dcc0c97230fa02433df93734bb3847cb.setContent(html_4853763d1f0e49f1e32493d3eb987b07);
+            
+        
+
+        marker_2af15be5455d44bd217ebfaa8112efe9.bindPopup(popup_dcc0c97230fa02433df93734bb3847cb)
+        ;
+
+        
+    
+    
+            marker_2af15be5455d44bd217ebfaa8112efe9.bindTooltip(
+                `<div>
+                     Jersey Shore BlueClaws
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2af15be5455d44bd217ebfaa8112efe9.setIcon(icon_3dad7231679cd4bc0c63c71605a99b43);
+            
+    
+            var marker_cb02523bd42c9897f9b255bfece8ac99 = L.marker(
+                [34.257038, -85.1646726],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_7524e13a14435e792f3c8a55698dd89e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c6a2b2a6c653a5532ef806b9946aa5d7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7da854ef5994d1016170a774cb6284bb = $(`<div id="html_7da854ef5994d1016170a774cb6284bb" style="width: 100.0%; height: 100.0%;">Rome, Georgia</div>`)[0];
+                popup_c6a2b2a6c653a5532ef806b9946aa5d7.setContent(html_7da854ef5994d1016170a774cb6284bb);
+            
+        
+
+        marker_cb02523bd42c9897f9b255bfece8ac99.bindPopup(popup_c6a2b2a6c653a5532ef806b9946aa5d7)
+        ;
+
+        
+    
+    
+            marker_cb02523bd42c9897f9b255bfece8ac99.bindTooltip(
+                `<div>
+                     Rome Emperors
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cb02523bd42c9897f9b255bfece8ac99.setIcon(icon_7524e13a14435e792f3c8a55698dd89e);
+            
+    
+            var marker_7d7e00a65fa44d922e9e75da7d89d7de = L.marker(
+                [39.7459468, -75.546589],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_c5b90d9e1823a394c06e9610fdad93e6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2ef126093d9dee607d86cd7108d7bcfc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f882b7a6982b07e462e17678b0ea7397 = $(`<div id="html_f882b7a6982b07e462e17678b0ea7397" style="width: 100.0%; height: 100.0%;">Wilmington, Delaware</div>`)[0];
+                popup_2ef126093d9dee607d86cd7108d7bcfc.setContent(html_f882b7a6982b07e462e17678b0ea7397);
+            
+        
+
+        marker_7d7e00a65fa44d922e9e75da7d89d7de.bindPopup(popup_2ef126093d9dee607d86cd7108d7bcfc)
+        ;
+
+        
+    
+    
+            marker_7d7e00a65fa44d922e9e75da7d89d7de.bindTooltip(
+                `<div>
+                     Wilmington Blue Rocks
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7d7e00a65fa44d922e9e75da7d89d7de.setIcon(icon_c5b90d9e1823a394c06e9610fdad93e6);
+            
+    
+            var marker_1520e4aa434447c7b42f7f6916f401e8 = L.marker(
+                [36.0998131, -80.2440518],
+                {
+}
+            ).addTo(feature_group_0afa02a72633f3aaf2e503de52a02f7a);
+        
+    
+            var icon_81ca1faa13cd4a29fb95842d37d0917f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1a877e1a5d03d571d27869406cbc8960 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f6e274f734a098aa74de8a6dcf694738 = $(`<div id="html_f6e274f734a098aa74de8a6dcf694738" style="width: 100.0%; height: 100.0%;">Winston-Salem, North Carolina</div>`)[0];
+                popup_1a877e1a5d03d571d27869406cbc8960.setContent(html_f6e274f734a098aa74de8a6dcf694738);
+            
+        
+
+        marker_1520e4aa434447c7b42f7f6916f401e8.bindPopup(popup_1a877e1a5d03d571d27869406cbc8960)
+        ;
+
+        
+    
+    
+            marker_1520e4aa434447c7b42f7f6916f401e8.bindTooltip(
+                `<div>
+                     Winston-Salem Dash
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1520e4aa434447c7b42f7f6916f401e8.setIcon(icon_81ca1faa13cd4a29fb95842d37d0917f);
+            
+    
+            feature_group_0afa02a72633f3aaf2e503de52a02f7a.addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+        
+    
+            var layer_control_6dbf0f2c12dbbd39ede584aa1f6fd196_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_08da9a3554c9986bb4bb9c52f705e575,
+                },
+                overlays :  {
+                    "International League" : feature_group_053281746217f96c810c53a964b2409f,
+                    "Pacific Coast League" : feature_group_41451e272ee06a1883ac38df61874cd1,
+                    "Eastern League" : feature_group_bc53ba03c01a661d28ec81264801af15,
+                    "Southern League" : feature_group_dad3353598b9e45ae01557d1da367210,
+                    "Texas League" : feature_group_5d20a4c4354404abe1017873df57dc91,
+                    "Midwest League" : feature_group_788df84878a606dfcb2de4e34b426f96,
+                    "South Atlantic League" : feature_group_0afa02a72633f3aaf2e503de52a02f7a,
+                },
+            };
+            let layer_control_6dbf0f2c12dbbd39ede584aa1f6fd196 = L.control.layers(
+                layer_control_6dbf0f2c12dbbd39ede584aa1f6fd196_layers.base_layers,
+                layer_control_6dbf0f2c12dbbd39ede584aa1f6fd196_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_b78149a5eb826b0cf12cefbc3d16f30a);
+
+        
+</script>
+</html>

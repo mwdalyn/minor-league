@@ -1,4 +1,14 @@
-# Gitignore
+## Gitignore
+# Folders
 .venv/
 scrape/
+scrape/.env
+archive/
 data/
+reports/
+
+# Files
+/user-agent.txt
+/.env
+/*.csv
+/todo.txt
