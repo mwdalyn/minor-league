@@ -6,7 +6,7 @@ import os, re
 from io import StringIO
 
 # Constants
-
+# NA
 
 # Functions
 def read_milb_soup(soup, output_csv_path="read_city_soup_test.csv"):
