@@ -1,9 +1,10 @@
 # Imports
 import pandas as pd
 import datetime as dt
-import numpy as np
-import os, re
+# import numpy as np
+# import os, re
 from io import StringIO
+import sqlite3
 
 # Constants
 # NA
@@ -70,3 +71,40 @@ def get_mascot_name(row):
         return team
 
 
+
+dtypes = {
+    "Index": "INTEGER",
+    "Team": "TEXT",
+    "Division": "TEXT",
+    "City": "TEXT",
+    "State": "TEXT",
+    "Stadium": "TEXT",
+    "Capacity": "INTEGER",
+    "Affiliate": "TEXT"
+}
+
+conn = sqlite3.connect("minor_league.db")
+cursor = conn.cursor()
+
+# Drop table if exists
+cursor.execute("DROP TABLE IF EXISTS teams;")
+
+# Build CREATE TABLE SQL using the dtypes dict
+columns_sql = ", ".join([f"{col} {dtype}" for col, dtype in dtypes.items()])
+create_table_sql = f"CREATE TABLE teams ({columns_sql});"
+cursor.execute(create_table_sql)
+conn.commit()
+
+# Insert DataFrame rows into the table
+for _, row in df.iterrows():
+    placeholders = ", ".join(["?"] * len(row))
+    cursor.execute(f"INSERT INTO teams VALUES ({placeholders})", tuple(row))
+conn.commit()
+
+# Verify
+query = "SELECT * FROM teams LIMIT 5;"
+for row in cursor.execute(query):
+    print(row)
+
+# Close connection
+conn.close()
