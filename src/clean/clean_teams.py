@@ -2,15 +2,65 @@
 import pandas as pd
 import datetime as dt
 # import numpy as np
-# import os, re
+import os, re, glob
 from io import StringIO
 import sqlite3
+from src.utils.html import find_latest_html, cook_html
 
 # Constants
-# NA
+DB_PATH = os.path.abspath(os.path.join('.','database','milb.sqlite'))
+
+CREATE_TABLE_SQL = """
+	CREATE TABLE IF NOT EXISTS minor_league_teams (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	Team TEXT NOT NULL,
+	Division TEXT,
+	City TEXT,
+	State TEXT,
+	Stadium TEXT,
+	Capacity INTEGER,
+	Affiliate TEXT,
+	League TEXT,
+	TableIndex INTEGER,
+	Affiliates TEXT,
+	Mascot TEXT,
+	created_on TEXT DEFAULT CURRENT_TIMESTAMP,
+	updated_on TEXT DEFAULT CURRENT_TIMESTAMP,
+	UNIQUE (Team, City, League)
+);
+"""
+
+CREATE_UPDATE_TRIGGER_SQL = """
+	CREATE TRIGGER IF NOT EXISTS trg_minor_league_teams_updated
+	AFTER UPDATE ON minor_league_teams
+	FOR EACH ROW
+	BEGIN
+		UPDATE minor_league_teams
+		SET updated_on = CURRENT_TIMESTAMP
+		WHERE id = OLD.id;
+	END;
+	"""
+
+UPSERT_SQL = """
+	INSERT INTO minor_league_teams (
+		Team, Division, City, State, Stadium,
+		Capacity, Affiliate, League,
+		TableIndex, Affiliates, Mascot
+	)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	ON CONFLICT (Team, City, League) DO UPDATE SET
+		Division=excluded.Division,
+		State=excluded.State,
+		Stadium=excluded.Stadium,
+		Capacity=excluded.Capacity,
+		Affiliate=excluded.Affiliate,
+		TableIndex=excluded.TableIndex,
+		Affiliates=excluded.Affiliates,
+		Mascot=excluded.Mascot;
+	"""
 
 # Functions
-def read_milb_soup(soup, output_csv_path="read_city_soup_test.csv"):
+def read_milb_soup(soup, output_csv_path=None):
 	# Check if soup looks like HTML
 	if not hasattr(soup, "find"):
 		return None
@@ -37,6 +87,7 @@ def read_milb_soup(soup, output_csv_path="read_city_soup_test.csv"):
 				df["State"] = "Arizona"
 			try:
 				df["State"] = df["Province"]
+				df = df.drop(columns="Province")
 			except:
 				pass
 			if 'State' not in df.columns and 'Province' not in df.columns:
@@ -54,57 +105,51 @@ def read_milb_soup(soup, output_csv_path="read_city_soup_test.csv"):
    
 	# Join and reformat all dfs
 	df = pd.concat(df_list, axis=0).reset_index(drop=True)
-	df.to_csv(output_csv_path)
+	if output_csv_path:
+		df.to_csv(output_csv_path)
 	return df
 
 def get_mascot_name(row):
-    '''Estimate the mascot name based on criteria applied to team name str.'''
-    team, city = row["Team"], row["City"]
-    # Remove City name in team if present
-    if city in team:
-        return team.replace(city, "").strip()
+	'''Estimate the mascot name based on criteria applied to team name str.'''
+	team, city = row["Team"], row["City"]
+	# Remove City name in team if present
+	if city in team:
+		return team.replace(city, "").strip()
 	# If remaining string >2 take final value
-    if len(team.split()) >= 2:
-        return team.split()[-1]
-    # Else none
-    else:
-        return team
+	if len(team.split()) >= 2:
+		return team.split()[-1]
+	# Else none
+	else:
+		return team
 
+def upsert_minor_league_teams(df, db_path=DB_PATH):
+	conn = sqlite3.connect(db_path)
+	cursor = conn.cursor()
 
+	cursor.execute(CREATE_TABLE_SQL)
+	cursor.execute(CREATE_UPDATE_TRIGGER_SQL)
+	records = [
+	(
+		row.Team,
+		row.Division,
+		row.City,
+		row.State,
+		row.Stadium,
+		int(row.Capacity) if pd.notna(row.Capacity) else None,
+		row.Affiliate,
+		row.League,
+		int(row.TableIndex) if pd.notna(row.TableIndex) else None,
+		row.Affiliates,
+		row.Mascot,
+	)
+	for row in df.itertuples(index=False)
+	]
+	cursor.executemany(UPSERT_SQL, records)
+	conn.commit()
+	conn.close()
 
-dtypes = {
-    "Index": "INTEGER",
-    "Team": "TEXT",
-    "Division": "TEXT",
-    "City": "TEXT",
-    "State": "TEXT",
-    "Stadium": "TEXT",
-    "Capacity": "INTEGER",
-    "Affiliate": "TEXT"
-}
-
-conn = sqlite3.connect("minor_league.db")
-cursor = conn.cursor()
-
-# Drop table if exists
-cursor.execute("DROP TABLE IF EXISTS teams;")
-
-# Build CREATE TABLE SQL using the dtypes dict
-columns_sql = ", ".join([f"{col} {dtype}" for col, dtype in dtypes.items()])
-create_table_sql = f"CREATE TABLE teams ({columns_sql});"
-cursor.execute(create_table_sql)
-conn.commit()
-
-# Insert DataFrame rows into the table
-for _, row in df.iterrows():
-    placeholders = ", ".join(["?"] * len(row))
-    cursor.execute(f"INSERT INTO teams VALUES ({placeholders})", tuple(row))
-conn.commit()
-
-# Verify
-query = "SELECT * FROM teams LIMIT 5;"
-for row in cursor.execute(query):
-    print(row)
-
-# Close connection
-conn.close()
+def clean_teams():
+	soup_html = cook_html(find_latest_html(os.path.abspath(os.path.join('.','data','raw','wikipedia','milb'))))
+	table = read_milb_soup(soup_html)
+	table["Mascot"] = table.apply(get_mascot_name, axis=1)
+	upsert_minor_league_teams(table, db_path=DB_PATH)
