@@ -193,6 +193,7 @@ def upsert_cities(df, db_path=DB_PATH):
 # def clean_city():
 ## Grab cities from database
 
+
 conn = sqlite3.connect(DB_PATH)
 query = "SELECT City, State FROM minor_league_teams;"
 cities_list = []

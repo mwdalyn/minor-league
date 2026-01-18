@@ -15,6 +15,7 @@ def set_ua_headers(ua_file_path='user-agent.txt'):
 				wiki_user_headers[key] = value
 			except ValueError:
 				print(f"Skip: {line.strip()}")
+	return wiki_user_headers
 
 def cook_soup(url, headers, html_file_path = None, parser = 'html.parser'):
 	## Cook Soup
