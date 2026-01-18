@@ -39,8 +39,7 @@ def cook_soup(url, headers, html_file_path = None, parser = 'html.parser'):
 def find_latest_html(folder_path, internal_text=None):
 	if internal_text:
 		pattern = re.compile(
-			rf"wiki_{re.escape(internal_text)}_(\d{{8}}_\d{{6}})\.html"
-		)
+			rf"wiki_{re.escape(internal_text)}_(\d{{8}}_\d{{6}})\.html")
 		timestamp_group = 1
 	else:
 		pattern = re.compile(r"wiki_(.*?)_(\d{8}_\d{6})\.html")
@@ -52,17 +51,13 @@ def find_latest_html(folder_path, internal_text=None):
 		match = pattern.fullmatch(filename)
 		if not match:
 			continue
-
 		date_str = match.group(timestamp_group)
 		file_date = dt.datetime.strptime(date_str, "%Y%m%d_%H%M%S")
-
 		if latest_date is None or file_date > latest_date:
 			latest_date = file_date
 			latest_file = filename
-
 	if latest_file is None:
 		return None
-
 	return os.path.join(folder_path, latest_file)
 
 def cook_html(html_file_path):
