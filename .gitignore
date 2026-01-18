@@ -13,3 +13,4 @@ database/milb.sqlite
 /.env
 /*.csv
 /todo.txt
+/milb.sqlite
