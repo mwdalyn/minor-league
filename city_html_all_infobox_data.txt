@@ -1,0 +1,54 @@
+Country
+State
+Region
+Metro
+County
+First settled
+Founded
+Incorporated
+Named after
+Government Type
+Government Body
+Government Mayor
+Government Deputy Mayor
+Government State Senators
+Government Assemblymembers
+Government US Rep
+Area City
+Area Land
+Area Water
+Elevation
+Population City
+Population Rank
+Population Density
+Population Urban
+Population Urbandensity
+Population Metro
+Demonyms
+GDP Metro
+Time zone
+GDP Summer
+ZIP code
+Area codes
+FIPS code
+GNIS feature ID
+Website
+Settled
+Area Total
+Population Total
+Population Estimate
+Demonym
+GDP Charlotte
+ZIP Codes
+Counties
+Government Council members
+Area State capital city
+Population State capital city
+Government City Manager
+Government Council
+Population Summer
+ZIP codes
+Primary Airport
+Public transportation
+Established
+Area code

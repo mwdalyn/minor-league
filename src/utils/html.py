@@ -4,9 +4,9 @@ from bs4 import BeautifulSoup
 import datetime as dt
 import os, re
 
-def set_ua_headers(ua_file_path='user-agent.txt'):
+def set_user_agent(headers_file='user-agent.txt'):
 	wiki_user_headers = {}
-	with open(ua_file_path, 'r') as f:
+	with open(headers_file, 'r') as f:
 		for line in f:
 			try:
 				# Parsing the txt
@@ -15,14 +15,18 @@ def set_ua_headers(ua_file_path='user-agent.txt'):
 				wiki_user_headers[key] = value
 			except ValueError:
 				print(f"Skip: {line.strip()}")
-	return wiki_user_headers
+	if not wiki_user_headers['User-Agent']:
+		return None
+	return wiki_user_headers['User-Agent']
 
-def cook_soup(url, headers, html_file_path = None, parser = 'html.parser'):
+def cook_soup(url, header = None, html_file_path = None, parser = 'html.parser'):
 	## Cook Soup
+	if not header:
+		return None
 	try:
 		response = requests.get(
 		url = url,
-		headers = headers)
+		headers = header) # Only need user-agent ('User-Agent' in .txt)
 		timestamp = dt.datetime.now().strftime(format="%Y%m%d_%H%M%S")
 		response.raise_for_status()
 		# Parse soup
