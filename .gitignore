@@ -6,6 +6,7 @@ scrape/.env
 archive/
 data/
 reports/
+database/milb.sqlite
 
 # Files
 /user-agent.txt
