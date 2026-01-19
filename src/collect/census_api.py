@@ -1,39 +1,111 @@
 '''
 Docstring for collect.census_api
 ac5 geographic options: https://api.census.gov/data/2023/acs/acs5/geography.html
-
+Census Geocoder API: 
+Limited to precise locations, so must provide LL instead of City, State. 
 '''
-import os, requests, time
+# Imports
+import os, requests, time, re
+import sqlite3
 from dotenv import load_dotenv
 import pandas as pd
-from us import states
+# from us import states
 
+# Retrieve API key
 dotenv_path = os.path.join(os.path.dirname(__file__), "..", ".env") # Two levels up
 load_dotenv(dotenv_path=dotenv_path)
-census_api_key = os.getenv("CENSUS_API_KEY")
+CENSUS_API_KEY = os.getenv("CENSUS_API_KEY")
 
-SLEEP_TIME = 0.5
-ACS_YEAR = 2023
-ACS_VARIABLES = [
-	"B01003_001E",  # Total population
-	"B19013_001E",  # Median household income
-	"B25001_001E",  # Housing units
-	"B23025_002E",  # Labor force
-	"B15003_022E"   # Bachelor's degree
-]
-CITY_STATE_LIST = [
-	("Akron", "OH"),
-	("Cleveland", "OH"),
-	("Columbus", "OH"),
-	("Dayton", "OH"),
-	("Toledo", "OH")
-] # TODO: Query the database 
-ACS_TO_CBSA_VINTAGE = [
-	{"acs_start": 2020, "acs_end": 2024, "cbsa_vintage": "2020"},
-	{"acs_start": 2015, "acs_end": 2019, "cbsa_vintage": "2010"},
-	{"acs_start": 2010, "acs_end": 2014, "cbsa_vintage": "2010"},
-	{"acs_start": 2005, "acs_end": 2009, "cbsa_vintage": "2000"},
-]
+# Constants
+SLEEP_TIME = 1
+DB_PATH = os.path.abspath(os.path.join('.','database','milb.sqlite'))
+BENCHMARK_YEAR = 9999 # 9999 = Current benchmark
+ACS5_YEAR = 2024 # Can be for 5Y ACS or 1Y ACS, need to determine which
+CBP_YEAR = 2024
+ACS1_YEAR_DICT = {
+	2022: [2022],
+	2021: [2021],
+	2020: [2020],
+	2019: [2019],
+	2018: [2018],
+	2017: [2017],
+	2016: [2016],
+	2015: [2015],
+	2014: [2014],
+	2013: [2013],
+	2012: [2012],
+	2011: [2011],
+	2010: [2010]
+}
+ACS5_YEAR_DICT = {
+	2022: [2018, 2019, 2020, 2021, 2022],
+	2021: [2017, 2018, 2019, 2020, 2021],
+	2020: [2016, 2017, 2018, 2019, 2020],
+	2019: [2015, 2016, 2017, 2018, 2019],
+	2018: [2014, 2015, 2016, 2017, 2018],
+	2017: [2013, 2014, 2015, 2016, 2017],
+	2016: [2012, 2013, 2014, 2015, 2016],
+	2015: [2011, 2012, 2013, 2014, 2015],
+	2014: [2010, 2011, 2012, 2013, 2014],
+	2013: [2009, 2010, 2011, 2012, 2013],
+	2012: [2008, 2009, 2010, 2011, 2012],
+	2011: [2007, 2008, 2009, 2010, 2011],
+	2010: [2006, 2007, 2008, 2009, 2010]
+}
+ACS5_VARIABLES = {
+	# Population & Demographics
+	"B01003_001E": "Total population",
+	"B01002_001E": "Median age of the total population (no average age equivalent exists in ACS)",
+	"B01001_002E": "Total male population",
+	"B01001_026E": "Total female population",
+	# Working-age population (used to derive working-age totals)
+	"B01001_007E": "Male population ages 16–17 (used to derive working-age population)",
+	"B01001_008E": "Male population ages 18–24 (used to derive working-age population)",
+	"B01001_009E": "Male population ages 25–34 (used to derive working-age population)",
+	"B01001_010E": "Male population ages 35–44 (used to derive working-age population)",
+	"B01001_011E": "Male population ages 45–54 (used to derive working-age population)",
+	"B01001_012E": "Male population ages 55–64 (used to derive working-age population)",
+	"B01001_013E": "Male population ages 65+ (excluded if limiting to working-age population)",
+	"B01001_031E": "Female population ages 16–17 (used to derive working-age population)",
+	"B01001_032E": "Female population ages 18–24 (used to derive working-age population)",
+	"B01001_033E": "Female population ages 25–34 (used to derive working-age population)",
+	"B01001_034E": "Female population ages 35–44 (used to derive working-age population)",
+	"B01001_035E": "Female population ages 45–54 (used to derive working-age population)",
+	"B01001_036E": "Female population ages 55–64 (used to derive working-age population)",
+	"B01001_037E": "Female population ages 65+ (excluded if limiting to working-age population)",
+	# Household size
+	"B11016_001E": "Median household size",
+	# "DP02_0010E": "Average household size (mean household size)", # This is a profile datapoint; separate
+	# Housing
+	# "DP04_0003E": "Housing unit vacancy rate (percentage of vacant units)", # This is a profile datapoint; separate
+	# Income
+	"B19013_001E": "Median household income (available at city, county, state, etc.)",
+	"B19025_001E": "Aggregate household income (used to derive average household income)",
+	"B11001_001E": "Total number of households (used to derive average household income)",
+	# Employment / Labor force
+	"B23025_002E": "Civilian population in the labor force (used to derive employment rate)",
+	"B23025_004E": "Civilian employed population (used to derive employment rate)",
+	# Industry / Employment by sector
+	"C24050_002E": "Employment in agriculture, forestry, fishing, and hunting",
+	"C24050_003E": "Employment in mining, quarrying, and oil and gas extraction",
+	"C24050_004E": "Employment in construction",
+	"C24050_005E": "Employment in manufacturing",
+	"C24050_006E": "Employment in wholesale trade",
+	"C24050_007E": "Employment in retail trade",
+	"C24050_008E": "Employment in transportation and warehousing, and utilities",
+	"C24050_009E": "Employment in educational services (education sector employment)",
+	"C24050_010E": "Employment in health care and social assistance",
+	"C24050_011E": "Employment in arts, entertainment, recreation, accommodation, and food services",
+	"C24050_012E": "Employment in public administration",
+	"C24050_013E": "Employment in other services (except public administration)"
+}
+ACS5_VARIABLES_SAFE = {
+    "B01003_001E": "Total population",
+    "B01002_001E": "Median age of the total population",
+    "B01001_002E": "Total male population",
+    "B01001_026E": "Total female population",
+    "B11016_001E": "Median household size"
+}
 STATE_ABBR = {
 	"Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR",
 	"California": "CA", "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE",
@@ -50,156 +122,168 @@ STATE_ABBR = {
 	"Wisconsin": "WI", "Wyoming": "WY", "District of Columbia": "DC"
 }
 
-
-def normalize_state(state_input):
+# Methods
+def abbreviate_state(state_input,title_to_abbr=True):
 	'''
 	If state input is a full name, normalize to abbrev.
 	'''
-	state_input = state_input.strip().title()  # "ohio" -> "Ohio"
-	if state_input in STATE_ABBR:
-		return STATE_ABBR[state_input]
-	elif state_input.upper() in STATE_ABBR.values():
-		return state_input.upper()  # Already abbreviation
+	if title_to_abbr:
+		state_input = state_input.strip().title()  # "ohio" -> "Ohio"
+		if state_input in STATE_ABBR:
+			return STATE_ABBR[state_input]
+		elif state_input.upper() in STATE_ABBR.values():
+			return state_input.upper()  # Already abbreviation
+		else:
+			raise ValueError(f"Unknown state: {state_input}")
 	else:
-		raise ValueError(f"Unknown state: {state_input}")
-
-def cbsa_vintage_for_acs_year(acs_year):
-	'''
-	Map CBSA vintage and ACS vintage.
-	'''
-	for row in ACS_TO_CBSA_VINTAGE:
-		if row["acs_start"] <= acs_year <= row["acs_end"]:
-			return row["cbsa_vintage"]
-	raise ValueError(f"No CBSA vintage mapping for ACS year {acs_year}")
-
-def city_state_to_cbsa_with_micro(city, state, acs_year):
-	'''
-	Lookup CBSA for city, state pair and given ACS Vintage. Includes fallback if muMSA (<50k).
-	
-	:param city: Description
-	:param state: Description
-	:param acs_year: Description
-	'''
-	cbsa_vintage = cbsa_vintage_for_acs_year(acs_year)
-
-	for layer, type_label in [("CBSA", "metro"), ("MICRO", "micro")]:
-		params = {
-			"address": f"{city}, {state}",
-			"benchmark": "Public_AR_Current",
-			"vintage": f"Current_{cbsa_vintage}",
-			"layers": layer,
-			"format": "json"
-		}
-
-		try:
-			r = requests.get(
-				"https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress",
-				params=params,
-				timeout=10
-			)
-			r.raise_for_status()
-			geos = r.json()["result"]["geographies"].get(layer, [])
-		except requests.exceptions.RequestException:
-			geos = []
-
-		# Return first match if available
-		if geos:
-			cbsa = geos[0]
-			time.sleep(SLEEP_TIME) 
-			return {
-				"cbsa_code": cbsa["GEOID"],
-				"cbsa_name": cbsa["NAME"],
-				"cbsa_vintage": cbsa_vintage,
-				"type": type_label
-			}
-
-	# No CBSA or muSA found
-	return None
-
-def resolve_cbsas(city_state_list, acs_year):
-	'''
-	Get CBSA for city, state in list of city, states
-	
-	:param city_state_list: Description
-	:param acs_year: Description
-	'''
-	cbsa_map = {}
-
-	for city, state in city_state_list:
-		result = city_state_to_cbsa_with_micro(city, state, acs_year)
-		if result:
-			cbsa_code = result["cbsa_code"]
-			cbsa_name = result["cbsa_name"]
-			if cbsa_code not in cbsa_map:
-				cbsa_map[cbsa_code] = {
-					"cbsa_name": cbsa_name,
-					"cities": [],
-					"type": result["type"],
-					"cbsa_vintage": result["cbsa_vintage"]
-				}
-			cbsa_map[cbsa_code]["cities"].append(f"{city}, {state}")
-
-	return cbsa_map
-
-
-def query_acs5_cbsa(cbsa_code, variables, year):
-	'''
-	Query ACS5 for a single CBSA
-	
-	:param cbsa_code: Description
-	:param variables: Description
-	:param year: Description
-	'''
-	params = {
-		"get": ",".join(["NAME"] + variables),
-		"for": f"cbsa:{cbsa_code}"
-	}
-
-	try:
-		r = requests.get(
-			f"https://api.census.gov/data/{year}/acs/acs5",
-			params=params,
-			timeout=10
-		)
-		r.raise_for_status()
-		data = r.json()
-	except requests.exceptions.RequestException:
 		return None
 
-	header, values = data[:2]
-	time.sleep(SLEEP_TIME) 
-	return dict(zip(header, values))
+def get_state_fips(state, acs5_year=2023):
+	'''Provide either state name title or abbrev, get FIPS code for state. For use in ACS/Census querying.'''
+	r = requests.get("https://api.census.gov/data/{}/acs/acs5?get=NAME&for=state:*".format(str(acs5_year)))
+	r.raise_for_status()
+	state_fips = {name: fips for name, fips in r.json()[1:]}  # {state_name: FIPS}
+	if len(state)==2:
+		state_name = {abbr: name for name, abbr in STATE_ABBR.items()}[state]
+	else:
+		state_name = state
+	return state_fips[state_name]
 
-def run_pipeline(city_state_list, variables, acs_year):
-	'''
-	Full pipeline with MSA and muMSA handling. Intake cities output ACS results.
+def get_city_fips(city, state, acs5_year=2023):
+	state_fips = get_state_fips(state)  # example: California FIPS
+	url = "https://api.census.gov/data/{}/acs/acs5".format(str(acs5_year))
+	params = {
+		"get": "NAME",  
+		"for": "place:*",
+		"in": f"state:{state_fips}",
+		"key": CENSUS_API_KEY
+	}
+	r2 = requests.get(url, params=params)
+	r2.raise_for_status()
+	data = r2.json()
+
+	# Get all sub-lists where the first item starts with search_str
+	matches = [item for item in data if item[0].startswith(city)]
+	# If one item returned, assume match; if multiple, clarify " city" suffix
+	if len(matches)==1:
+		city_fips = matches[0][2] # Return ACS place sublist then select city_fips element [2]
+	elif len(matches)>1:
+		city_fips = [item for item in data if item[0].startswith(city+" city")][0][2] # Return ACS place sublist then select city_fips element [2]
+	else:
+		city_fips = None # TODO: Don't like "None" in this instance, is there a better option for fail state?
+	return city_fips
+
+def check_vars_batch(url, variables, city_fips, state_fips, api_key, batch_size=10):
+	"""
+	NOTE: This is currently unworkable. 
+	Recursively check which variables exist for a city/state using batching.
+	Returns a list of available variables.
+	"""
+	available = []
 	
-	:param city_state_list: Description
-	:param variables: Description
-	:param acs_year: Description
-	'''
-	results = []
-	cbsa_map = resolve_cbsas(city_state_list, acs_year)
+	# Base case: only one variable
+	if len(variables) == 1:
+		var = variables[0]
+		params = {"get": f"NAME,{var}", "for": f"place:{city_fips}", "in": f"state:{state_fips}", "key": api_key}
+		try:
+			r = requests.get(url, params=params)
+			print(r.status_code, r.text)
+			r.raise_for_status()
+			return [var]  # exists
+		except requests.exceptions.HTTPError:
+			return []  # missing
+	else:
+		# Split variables into batches
+		for i in range(0, len(variables), batch_size):
+			batch = variables[i:i+batch_size]
+			params = {"get": "NAME," + ",".join(batch), "for": f"place:{city_fips}", "in": f"state:{state_fips}", "key": api_key}
+			try:
+				r = requests.get(url, params=params)
+				print(r.status_code, r.text)
+				r.raise_for_status()
+				available.extend(batch)  # all returned → available
+			except requests.exceptions.HTTPError:
+				if len(batch) == 1:
+					continue  # single var failed → not available
+				else:
+					# Split batch recursively
+					available.extend(check_vars_batch(url, batch, city_fips, state_fips, api_key, batch_size=1))
+	
+	return available
 
-	for cbsa_code, info in cbsa_map.items():
-		record = query_acs5_cbsa(cbsa_code, variables, acs_year)
-		if record:  # skip failed ACS queries
-			record.update({
-				"cbsa_code": cbsa_code,
-				"cbsa_name": info["cbsa_name"],
-				"type": info["type"],              # metro or micro
-				"cbsa_vintage": info["cbsa_vintage"],
-				"cities": info["cities"]           # provenance
-			})
-			results.append(record)
-
+def check_available_vars_per_city_batched(year, city_state_list, variables, key):
+	"""
+	NOTE: This is currently unworkable. 
+	Returns a dict mapping (city_fips, state_fips) -> list of available ACS variables.
+	Uses batched recursive checks for efficiency and robustness.
+	"""
+	url = f"https://api.census.gov/data/{year}/acs/acs5"
+	results = {}
+	
+	for city_fips, state_fips in city_state_list:
+		available = check_vars_batch(url, variables, city_fips, state_fips, key, batch_size=10)
+		results[(city_fips, state_fips)] = available
+	
 	return results
 
-acs_results = run_pipeline(
-	city_state_list=CITY_STATE_LIST,
-	variables=ACS_VARIABLES,
-	year=ACS_YEAR
-)
+# Test availablility of variables by city/size
+city, state = 'Dayton', 'Ohio'
+state_fips = get_state_fips(abbreviate_state(state))  # example: California FIPS
+city_fips = get_city_fips(city, abbreviate_state(state))
+URL = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
+# check_vars_batch(URL, list(ACS5_VARIABLES.keys()), city_fips, state_fips, CENSUS_API_KEY, batch_size=10)
 
-for r in acs_results:
-	print(r)
+##% Query and set up ACS table
+## Grab cities from database
+acs5_variables = ACS5_VARIABLES_SAFE
+conn = sqlite3.connect(DB_PATH)
+query = "SELECT City, State FROM minor_league_teams;"
+cities_list, cities_df, failed_cities = [], [], [] # TODO: Create outlet for failed_cities with try/except
+for row in conn.execute(query):
+	print(row)
+	cities_list.append(row)
+	city, state = row
+	state_fips = get_state_fips(abbreviate_state(state))
+	city_fips = get_city_fips(city, abbreviate_state(state))
+	print("Sleep")
+	time.sleep(SLEEP_TIME)
+	print("Wake")
+	# Query Census ACS data (simple, for now) # TODO: Build in more selection for Benchmark geo and Vintage of ACS to get a longitudinal view
+	url = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
+	params = {
+		"get": "NAME,{}".format(",".join(acs5_variables)),  # median household income
+		"for": f"place:{city_fips}",
+		"in": f"state:{state_fips}",
+		"key": CENSUS_API_KEY,
+	}
+	r2 = requests.get(url, params=params)
+	r2.raise_for_status()
+	data = r2.json()
+	cities_df.append(data[1] + [city, state])
+# User data headers from json to set column names, create df from collected responses
+cities_df = pd.DataFrame(cities_df, columns=[data[0]+["city_name","state_name"]])
+# Use ACS variables dict to rename columns into logical form
+# TODO: Instead create a key table or similar 
+# Upsert into database
+# TODO
+
+
+
+##% Query and set up CBP (econ) table
+## Grab cities from database
+acs5_variables = ACS5_VARIABLES_SAFE
+conn = sqlite3.connect(DB_PATH)
+query = "SELECT City, State FROM minor_league_teams;"
+cities_list, cities_df, failed_cities = [], [], [] # TODO: Create outlet for failed_cities with try/except
+for row in conn.execute(query):
+	print(row)
+	cities_list.append(row)
+	city, state = row
+	state_fips = get_state_fips(abbreviate_state(state))
+	city_fips = get_city_fips(city, abbreviate_state(state))
+	print("Sleep")
+	time.sleep(SLEEP_TIME)
+	print("Wake")
+	# Query data
+	url = "https://api.census.gov/data/{}/cbp".format(str(CBP_YEAR))
+	# TODO
