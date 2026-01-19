@@ -153,3 +153,5 @@ def clean_teams():
 	table = read_milb_soup(soup_html)
 	table["Mascot"] = table.apply(get_mascot_name, axis=1)
 	upsert_minor_league_teams(table, db_path=DB_PATH)
+
+# clean_teams()

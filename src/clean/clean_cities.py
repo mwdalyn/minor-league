@@ -354,145 +354,108 @@ def drop_cities_table(db_path=DB_PATH):
 	conn.commit()
 	conn.close()
 
-# def clean_cities():
-## Grab cities from database
-conn = sqlite3.connect(DB_PATH)
-query = "SELECT City, State FROM minor_league_teams;"
-cities_list, cities_df, infobox_unique_cols, failed_cities = [], [], [], []
-i = 0
-for row in conn.execute(query):
-	try:
-		cities_list.append(row)
-		city, state = row
-		soup_html = cook_html(find_latest_html(os.path.abspath(os.path.join('.','data','raw','wikipedia','city')),
-											internal_text = "{},_{}".format(city.replace(" ","_").lower(),state.replace(" ","_").lower())))
-		table = read_city_soup(soup_html)
-		[infobox_unique_cols.append(x) for x in table.columns.tolist() if x not in infobox_unique_cols]
-		# Additional cleaning steps
-		table.insert(0, "State Name", state)
-		table.insert(0, "City Name", city)
-		table['Latitude'], table['Longitude'] = add_lat_lon(city, state, header=USER_AGENT)
-		first_values = {col: table[col].dropna().iloc[0] if not table[col].dropna().empty else None for col in table.columns}
-		for k, v in first_values.items():
-			if v is None:
-				print(f"{k} has all None values")
-			else:
-				print(k, " : ", v)
-		# Strip and consolidate information
-		keep_cols = ["City Name", "State Name", "Country", "Metro", "MSA", "Metropolitan statistical area", "Urban Area", "CSA", "County", "Province", 
-					"Area City", "Area Urban", "Area Metro", "Area CSA", "Area Censusdesignated place", "Area Federal capital city",
-					"Area City and provincial capital",
-					"Elevation", 
-					"Population City", "Population Density", "Population Urban", "Population Federal capital city",
-					"Population Urbandensity", "Population CSA density", "Population Metro", "Population CSA", "Population Region", "Population TriCities", 
-					"Population Censusdesignated place", "Population City and provincial capital",
-					"GDP Metro", "GDP", "GDP MSA", "GDP Total", "GDP Greensboro",
-					"FIPS code", "GNIS ID", "GNIS IDs"] 
-		group_agg = {"Founded": ["First settled","Founded","Named","Incorporated","Established", "First settlement", "Charter", "Chartered", "Adopted", 
-									"Foundation", "Founding", "City Charter", "Laid out", "Laid Out", "Incorporated as a town", "Incorporated as a city", "Incorporated as a village", "Incorporation",
-									"Constituted", "Municipal corporation"],
-					"Area_Geo":["Area City", "Area Urban", "Area Metro", "Area CSA", "Area Censusdesignated place", "Area Federal capital city",
-								"Area City and provincial capital"],
-					"Pop_Est":["Population City", "Population Urban", "Population Federal capital city", "Population Metro", 
-								"Population CSA", "Population Region", "Population TriCities", "Population Censusdesignated place", "Population City and provincial capital"],
-					"GDP":["GDP Metro", "GDP", "GDP MSA", "GDP Total", "GDP Greensboro"],
-					"GNIS":["GNIS ID", "GNIS IDs", "GNIS feature ID"],
-					"MSA":["MSA", "Metropolitan statistical area"]}
-		# Build out desired columns
-		table = table.reindex(columns=keep_cols + [item for lst in group_agg.values() for item in lst if item not in keep_cols])
-		# Aggregate founding
-		# founded_col = table.columns.intersection(group_agg["Founded"]) # Use these columns to filter; became unnecessary after reindex force including all listed above
-		founded_table = table[group_agg["Founded"]]
-		years_founded = founded_table.apply(lambda c: c.map(extract_year))
-		table["year_founded_max"] = years_founded.max(axis=1).astype("Int64")
-		table["year_founded_min"] = years_founded.min(axis=1).astype("Int64")	
-		table = table.drop(columns = group_agg["Founded"])
-		# Aggregate geo area
-		area_table = table[group_agg["Area_Geo"]]
-		area_sizes = area_table.apply(lambda c: c.map(extract_area_sqmi))
-		table["area_max"] = area_sizes.max(axis=1).astype("float")
-		table["area_min"] = area_sizes.min(axis=1).astype("float")
-		# Aggregate population
-		pop_table = table[group_agg["Pop_Est"]]
-		pop_ests = pop_table.apply(lambda c: c.map(extract_pop))
-		table["pop_max"] = pop_ests.max(axis=1).astype("float")
-		table["pop_min"] = pop_ests.min(axis=1).astype("float")
-		# Aggregate GDP 
-		gdp_table = table[group_agg["GDP"]]
-		gdp_ests = gdp_table.apply(lambda c: c.map(extract_gdp))
-		table["gdp_max"] = gdp_ests.max(axis=1).astype("float")
-		table["gdp_min"] = gdp_ests.min(axis=1).astype("float")
-		# Select GNIS
-		gnis = table[group_agg["GNIS"]]
-		table["gnis_est"] = choose_value(gnis.apply(lambda c: c.map(extract_gnis)))
-		# Select MSA
-		msas = table[group_agg["MSA"]]
-		table["msa_est"] = choose_value(msas.apply(lambda c: c.map(extract_msa)))
-		# Reindex
-		table = table.reindex(columns=[col for col in table.columns.tolist() if col not in [item for lst in group_agg.values() for item in lst]])
-		# Update column names to match SQL convention
-		table.columns = [col.lower().replace(" ","_") for col in table.columns.tolist()]
-		table = table.rename(columns={"city_name":"city"})
-		table = table.rename(columns={"state_name":"state"})
-		# Add to tables container
-		cities_df.append(table)
-		i += 1
-		if i >= 300:
-			break
-	except Exception as e:
-		print(f"Failed for {city}, {state}: {e}")
-		failed_cities.append((city, state))
-		continue
-
-# Close connection
-conn.close()
-# Columns to consider for future development 
-with open(os.path.abspath(os.path.join(".","data","mid","cities_html_all_infobox_data.txt")), "w") as f:
-	for item in infobox_unique_cols:
-		f.write(f"{item}\n")
-# # Print failed cities (temporary)
-# print(failed_cities)
-
-# Create df
-cities_df = pd.concat(cities_df, axis=0)
-cities_df.to_csv(os.path.abspath(os.path.join(".","data","fin","cities_df.csv")))
-
-## Inject cities_df into DB table
-# upsert_cities_robust(cities_df, db_path=DB_PATH) # NOTE: Doesn't work, param 13 error nonstandard
-# Atttempt to use "more_robust"
-# upsert_cities_more_robust(cities_df, db_path=DB_PATH) # NOTE: Doesn't work, param 13 error nonstandard
-
-# New test
-df = cities_df.copy()
-if not isinstance(df, pd.DataFrame):
-	raise TypeError("Input must be a pandas DataFrame")
-
-# Ensure all required columns exist
-missing_cols = [col for col in REQUIRED_COLUMNS if col not in df.columns]
-if missing_cols:
-	raise ValueError(f"The following required columns are missing from the DataFrame: {missing_cols}")
-
-# Create list of tuples for executemany
-records = [
-	tuple(clean_value(row[col]) for col in REQUIRED_COLUMNS)
-	for row in df.to_dict("records")
-]
-
-# if not records:
-	# return  # Nothing to insert
-
-with open(os.path.abspath(os.path.join(".","data","mid","cities_records.txt")), "w") as f:
-	f.write(str(records))
-
-# Upsert into SQLite
-try:
+def clean_cities():
+	## Grab cities from database
 	conn = sqlite3.connect(DB_PATH)
-	cursor = conn.cursor()
-	cursor.execute(CREATE_TABLE_SQL)
-	cursor.execute(CREATE_UPDATE_TRIGGER_SQL)
-	cursor.executemany(UPSERT_SQL, records)
-	conn.commit()
+	query = "SELECT City, State FROM minor_league_teams;"
+	cities_list, cities_df, infobox_unique_cols, failed_cities = [], [], [], []
+	for row in conn.execute(query):
+		try:
+			cities_list.append(row)
+			city, state = row
+			soup_html = cook_html(find_latest_html(os.path.abspath(os.path.join('.','data','raw','wikipedia','city')),
+												internal_text = "{},_{}".format(city.replace(" ","_").lower(),state.replace(" ","_").lower())))
+			table = read_city_soup(soup_html)
+			[infobox_unique_cols.append(x) for x in table.columns.tolist() if x not in infobox_unique_cols]
+			# Additional cleaning steps
+			table.insert(0, "State Name", state)
+			table.insert(0, "City Name", city)
+			table['Latitude'], table['Longitude'] = add_lat_lon(city, state, header=USER_AGENT)
+			first_values = {col: table[col].dropna().iloc[0] if not table[col].dropna().empty else None for col in table.columns}
+			for k, v in first_values.items():
+				if v is None:
+					print(f"{k} has all None values")
+				else:
+					print(k, " : ", v)
+			# Strip and consolidate information
+			keep_cols = ["City Name", "State Name", "Country", "Metro", "MSA", "Metropolitan statistical area", "Urban Area", "CSA", "County", "Province", 
+						"Area City", "Area Urban", "Area Metro", "Area CSA", "Area Censusdesignated place", "Area Federal capital city",
+						"Area City and provincial capital",
+						"Elevation", 
+						"Population City", "Population Density", "Population Urban", "Population Federal capital city",
+						"Population Urbandensity", "Population CSA density", "Population Metro", "Population CSA", "Population Region", "Population TriCities", 
+						"Population Censusdesignated place", "Population City and provincial capital",
+						"GDP Metro", "GDP", "GDP MSA", "GDP Total", "GDP Greensboro",
+						"FIPS code", "GNIS ID", "GNIS IDs"] 
+			group_agg = {"Founded": ["First settled","Founded","Named","Incorporated","Established", "First settlement", "Charter", "Chartered", "Adopted", 
+										"Foundation", "Founding", "City Charter", "Laid out", "Laid Out", "Incorporated as a town", "Incorporated as a city", "Incorporated as a village", "Incorporation",
+										"Constituted", "Municipal corporation"],
+						"Area_Geo":["Area City", "Area Urban", "Area Metro", "Area CSA", "Area Censusdesignated place", "Area Federal capital city",
+									"Area City and provincial capital"],
+						"Pop_Est":["Population City", "Population Urban", "Population Federal capital city", "Population Metro", 
+									"Population CSA", "Population Region", "Population TriCities", "Population Censusdesignated place", "Population City and provincial capital"],
+						"GDP":["GDP Metro", "GDP", "GDP MSA", "GDP Total", "GDP Greensboro"],
+						"GNIS":["GNIS ID", "GNIS IDs", "GNIS feature ID"],
+						"MSA":["MSA", "Metropolitan statistical area"]}
+			# Build out desired columns
+			table = table.reindex(columns=keep_cols + [item for lst in group_agg.values() for item in lst if item not in keep_cols])
+			# Aggregate founding
+			# founded_col = table.columns.intersection(group_agg["Founded"]) # Use these columns to filter; became unnecessary after reindex force including all listed above
+			founded_table = table[group_agg["Founded"]]
+			years_founded = founded_table.apply(lambda c: c.map(extract_year))
+			table["year_founded_max"] = years_founded.max(axis=1).astype("Int64")
+			table["year_founded_min"] = years_founded.min(axis=1).astype("Int64")	
+			table = table.drop(columns = group_agg["Founded"])
+			# Aggregate geo area
+			area_table = table[group_agg["Area_Geo"]]
+			area_sizes = area_table.apply(lambda c: c.map(extract_area_sqmi))
+			table["area_max"] = area_sizes.max(axis=1).astype("float")
+			table["area_min"] = area_sizes.min(axis=1).astype("float")
+			# Aggregate population
+			pop_table = table[group_agg["Pop_Est"]]
+			pop_ests = pop_table.apply(lambda c: c.map(extract_pop))
+			table["pop_max"] = pop_ests.max(axis=1).astype("float")
+			table["pop_min"] = pop_ests.min(axis=1).astype("float")
+			# Aggregate GDP 
+			gdp_table = table[group_agg["GDP"]]
+			gdp_ests = gdp_table.apply(lambda c: c.map(extract_gdp))
+			table["gdp_max"] = gdp_ests.max(axis=1).astype("float")
+			table["gdp_min"] = gdp_ests.min(axis=1).astype("float")
+			# Select GNIS
+			gnis = table[group_agg["GNIS"]]
+			table["gnis_est"] = choose_value(gnis.apply(lambda c: c.map(extract_gnis)))
+			# Select MSA
+			msas = table[group_agg["MSA"]]
+			table["msa_est"] = choose_value(msas.apply(lambda c: c.map(extract_msa)))
+			# Reindex
+			table = table.reindex(columns=[col for col in table.columns.tolist() if col not in [item for lst in group_agg.values() for item in lst]])
+			# Update column names to match SQL convention
+			table.columns = [col.lower().replace(" ","_") for col in table.columns.tolist()]
+			table = table.rename(columns={"city_name":"city"})
+			table = table.rename(columns={"state_name":"state"})
+			# Add to tables container
+			cities_df.append(table)
+		except Exception as e:
+			print(f"Failed for {city}, {state}: {e}")
+			failed_cities.append((city, state))
+			continue
+
+	# Close connection
 	conn.close()
-except Exception as e: 
-	print(e)
+	# Columns to consider for future development 
+	with open(os.path.abspath(os.path.join(".","data","mid","cities_all_infobox_data.txt")), "w") as f:
+		for item in infobox_unique_cols:
+			f.write(f"{item}\n")
+	# Print failed cities (temporary)
+	with open(os.path.abspath(os.path.join(".","data","mid","cities_failed.txt")), "w") as f:
+		for city in failed_cities:
+			f.write("{}, {}".format(city[0], city[1]))
+
+	# Create df
+	cities_df = pd.concat(cities_df, axis=0)
+	cities_df.to_csv(os.path.abspath(os.path.join(".","data","fin","cities_df.csv")))
+
+	## Inject cities_df into DB table
+	upsert_cities_more_robust(cities_df, db_path=DB_PATH) # NOTE: Doesn't work, param 13 error nonstandard
+
 # clean_cities()
