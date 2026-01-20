@@ -1,18 +1,19 @@
 '''
 Docstring for collect.census_api
 ac5 geographic options: https://api.census.gov/data/2023/acs/acs5/geography.html
-Census Geocoder API: 
-Limited to precise locations, so must provide LL instead of City, State. 
+NOTE: Census Geocoder API available for intaking LL instead of City, State. FIPS seems more compatible 
 '''
 # Imports
 import os, requests, time, re
 import sqlite3
 from dotenv import load_dotenv
 import pandas as pd
-# from us import states
+import numpy as np
+import warnings
 
 # Retrieve API key
-dotenv_path = os.path.join(os.path.dirname(__file__), "..", ".env") # Two levels up
+# dotenv_path = os.path.join(os.path.dirname(__file__), ".", ".env") 
+dotenv_path = os.path.join(os.getcwd(), ".env") 
 load_dotenv(dotenv_path=dotenv_path)
 CENSUS_API_KEY = os.getenv("CENSUS_API_KEY")
 
@@ -20,8 +21,8 @@ CENSUS_API_KEY = os.getenv("CENSUS_API_KEY")
 SLEEP_TIME = 1
 DB_PATH = os.path.abspath(os.path.join('.','database','milb.sqlite'))
 BENCHMARK_YEAR = 9999 # 9999 = Current benchmark
-ACS5_YEAR = 2024 # Can be for 5Y ACS or 1Y ACS, need to determine which
-CBP_YEAR = 2024
+ACS5_YEAR = 2023 # Can be for 5Y ACS or 1Y ACS, need to determine which
+CBP_YEAR = 2023
 ACS1_YEAR_DICT = {
 	2022: [2022],
 	2021: [2021],
@@ -99,13 +100,6 @@ ACS5_VARIABLES = {
 	"C24050_012E": "Employment in public administration",
 	"C24050_013E": "Employment in other services (except public administration)"
 }
-ACS5_VARIABLES_SAFE = {
-    "B01003_001E": "Total population",
-    "B01002_001E": "Median age of the total population",
-    "B01001_002E": "Total male population",
-    "B01001_026E": "Total female population",
-    "B11016_001E": "Median household size"
-}
 STATE_ABBR = {
 	"Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR",
 	"California": "CA", "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE",
@@ -123,23 +117,35 @@ STATE_ABBR = {
 }
 
 # Methods
-def abbreviate_state(state_input,title_to_abbr=True):
-	'''
-	If state input is a full name, normalize to abbrev.
-	'''
-	if title_to_abbr:
-		state_input = state_input.strip().title()  # "ohio" -> "Ohio"
-		if state_input in STATE_ABBR:
-			return STATE_ABBR[state_input]
-		elif state_input.upper() in STATE_ABBR.values():
-			return state_input.upper()  # Already abbreviation
-		else:
-			raise ValueError(f"Unknown state: {state_input}")
-	else:
-		return None
+# def abbreviate_state(state_input,title_to_abbr=True):
+# 	'''
+# 	If state input is a full name, normalize to abbrev.
+# 	'''
+# 	if title_to_abbr:
+# 		state_input = state_input.strip().title()  # "ohio" -> "Ohio"
+# 		if state_input in STATE_ABBR:
+# 			return STATE_ABBR[state_input]
+# 		elif state_input.upper() in STATE_ABBR.values():
+# 			return state_input.upper()  # Already abbreviation
+# 		else:
+# 			# raise ValueError(f"Unknown state: {state_input}")
+# 			print(f"Unknown state: {state_input}") # TODO: Find a way to handle issues here without breaking
+# 			return None
+# 	else:
+# 		return None
+
+def abbreviate_state(state):
+	state = state.strip().title()
+	if state in STATE_ABBR:
+		return STATE_ABBR[state]
+	warnings.warn(f"Unknown state: {state}", RuntimeWarning)
+	return None
 
 def get_state_fips(state, acs5_year=2023):
 	'''Provide either state name title or abbrev, get FIPS code for state. For use in ACS/Census querying.'''
+	if state is None:
+		warnings.warn("State input is None; cannot resolve state FIPS.", RuntimeWarning)
+		return None
 	r = requests.get("https://api.census.gov/data/{}/acs/acs5?get=NAME&for=state:*".format(str(acs5_year)))
 	r.raise_for_status()
 	state_fips = {name: fips for name, fips in r.json()[1:]}  # {state_name: FIPS}
@@ -151,6 +157,9 @@ def get_state_fips(state, acs5_year=2023):
 
 def get_city_fips(city, state, acs5_year=2023):
 	state_fips = get_state_fips(state)  # example: California FIPS
+	if state is None or state_fips is None:
+		warnings.warn("State input is None; cannot resolve state FIPS.", RuntimeWarning)
+		return None
 	url = "https://api.census.gov/data/{}/acs/acs5".format(str(acs5_year))
 	params = {
 		"get": "NAME",  
@@ -161,7 +170,6 @@ def get_city_fips(city, state, acs5_year=2023):
 	r2 = requests.get(url, params=params)
 	r2.raise_for_status()
 	data = r2.json()
-
 	# Get all sub-lists where the first item starts with search_str
 	matches = [item for item in data if item[0].startswith(city)]
 	# If one item returned, assume match; if multiple, clarify " city" suffix
@@ -173,21 +181,28 @@ def get_city_fips(city, state, acs5_year=2023):
 		city_fips = None # TODO: Don't like "None" in this instance, is there a better option for fail state?
 	return city_fips
 
+def check_fips(state_fips, place_fips, api_key, acs5_year=2023):
+	url = f"https://api.census.gov/data/{str(acs5_year)}/acs/acs5?get=NAME&for=place:{place_fips}&in=state:{state_fips}&key={api_key}"
+	response = requests.get(url)
+	if response.status_code != 200:
+		return f"Error: {response.status_code} - {response.text}"
+	data = response.json()
+	if len(data) < 2:
+		return "FIPS code not found"
+	return None  # Returns None if check succeeds
+
 def check_vars_batch(url, variables, city_fips, state_fips, api_key, batch_size=10):
 	"""
-	NOTE: This is currently unworkable. 
 	Recursively check which variables exist for a city/state using batching.
 	Returns a list of available variables.
 	"""
 	available = []
-	
 	# Base case: only one variable
 	if len(variables) == 1:
 		var = variables[0]
 		params = {"get": f"NAME,{var}", "for": f"place:{city_fips}", "in": f"state:{state_fips}", "key": api_key}
 		try:
 			r = requests.get(url, params=params)
-			print(r.status_code, r.text)
 			r.raise_for_status()
 			return [var]  # exists
 		except requests.exceptions.HTTPError:
@@ -199,7 +214,6 @@ def check_vars_batch(url, variables, city_fips, state_fips, api_key, batch_size=
 			params = {"get": "NAME," + ",".join(batch), "for": f"place:{city_fips}", "in": f"state:{state_fips}", "key": api_key}
 			try:
 				r = requests.get(url, params=params)
-				print(r.status_code, r.text)
 				r.raise_for_status()
 				available.extend(batch)  # all returned → available
 			except requests.exceptions.HTTPError:
@@ -213,29 +227,30 @@ def check_vars_batch(url, variables, city_fips, state_fips, api_key, batch_size=
 
 def check_available_vars_per_city_batched(year, city_state_list, variables, key):
 	"""
-	NOTE: This is currently unworkable. 
 	Returns a dict mapping (city_fips, state_fips) -> list of available ACS variables.
 	Uses batched recursive checks for efficiency and robustness.
 	"""
 	url = f"https://api.census.gov/data/{year}/acs/acs5"
 	results = {}
-	
 	for city_fips, state_fips in city_state_list:
 		available = check_vars_batch(url, variables, city_fips, state_fips, key, batch_size=10)
 		results[(city_fips, state_fips)] = available
 	
 	return results
 
+
 # Test availablility of variables by city/size
-city, state = 'Dayton', 'Ohio'
+city, state = 'Columbus', 'Ohio'
 state_fips = get_state_fips(abbreviate_state(state))  # example: California FIPS
 city_fips = get_city_fips(city, abbreviate_state(state))
-URL = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
-# check_vars_batch(URL, list(ACS5_VARIABLES.keys()), city_fips, state_fips, CENSUS_API_KEY, batch_size=10)
+check_fips(state_fips, city_fips, CENSUS_API_KEY)
+# Check variables that are available
+variables = list(ACS5_VARIABLES.keys())
+url = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
+check_vars_batch(url, variables, city_fips, state_fips, CENSUS_API_KEY, batch_size=10)
 
 ##% Query and set up ACS table
 ## Grab cities from database
-acs5_variables = ACS5_VARIABLES_SAFE
 conn = sqlite3.connect(DB_PATH)
 query = "SELECT City, State FROM minor_league_teams;"
 cities_list, cities_df, failed_cities = [], [], [] # TODO: Create outlet for failed_cities with try/except
@@ -245,13 +260,18 @@ for row in conn.execute(query):
 	city, state = row
 	state_fips = get_state_fips(abbreviate_state(state))
 	city_fips = get_city_fips(city, abbreviate_state(state))
-	print("Sleep")
+	if not city or not state or not state_fips or not city_fips or check_fips(state_fips, city_fips, CENSUS_API_KEY):
+		print("Something wrong with FIPS results for {}, {}: {},{}".format(city, state, city_fips, state_fips))
+		continue # if not, all OK
+	# Check variables that are available
+	vars = list(ACS5_VARIABLES.keys())
+	url = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
+	available_vars = check_vars_batch(url, vars, city_fips, state_fips, CENSUS_API_KEY, batch_size=10)
 	time.sleep(SLEEP_TIME)
-	print("Wake")
 	# Query Census ACS data (simple, for now) # TODO: Build in more selection for Benchmark geo and Vintage of ACS to get a longitudinal view
 	url = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
 	params = {
-		"get": "NAME,{}".format(",".join(acs5_variables)),  # median household income
+		"get": "NAME,{}".format(",".join(available_vars)),  # median household income
 		"for": f"place:{city_fips}",
 		"in": f"state:{state_fips}",
 		"key": CENSUS_API_KEY,
@@ -259,19 +279,32 @@ for row in conn.execute(query):
 	r2 = requests.get(url, params=params)
 	r2.raise_for_status()
 	data = r2.json()
-	cities_df.append(data[1] + [city, state])
+	# Set up city DataFrame
+	city_df = pd.DataFrame([data[1] + [city, state]], columns=[data[0] + ["city_name","state_name"]])
+	# Add missing columns with NaN
+	for col in ["NAME"] + vars + ["city_name", "state_name"]:
+		if col not in city_df.columns:
+			city_df[col] = np.nan # NOTE: Be aware, is np.nan the best choice?
+	city_df = city_df[["NAME"] + vars + ["city_name", "state_name"]]
+	cities_df.append(city_df)
+
 # User data headers from json to set column names, create df from collected responses
 cities_df = pd.DataFrame(cities_df, columns=[data[0]+["city_name","state_name"]])
+# Reformat columns (non-Census cols)
+cities_df.columns = [
+	col.lower().replace(" ", "_") if not re.search(r"\d", col) else col
+	for col in cities_df.columns
+]
 # Use ACS variables dict to rename columns into logical form
-# TODO: Instead create a key table or similar 
+# TODO: Instead create a key table or similar, so we can log descriptions
 # Upsert into database
-# TODO
-
+required_columns = cities_df.columns.tolist()
+# TODO: Develop upsert
 
 
 ##% Query and set up CBP (econ) table
 ## Grab cities from database
-acs5_variables = ACS5_VARIABLES_SAFE
+acs5_variables = list(ACS5_VARIABLES.keys())
 conn = sqlite3.connect(DB_PATH)
 query = "SELECT City, State FROM minor_league_teams;"
 cities_list, cities_df, failed_cities = [], [], [] # TODO: Create outlet for failed_cities with try/except
