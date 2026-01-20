@@ -240,16 +240,6 @@ def check_available_vars_per_city_batched(year, city_state_list, variables, key)
 	return results
 
 
-# Test availablility of variables by city/size
-city, state = 'Columbus', 'Ohio'
-state_fips = get_state_fips(abbreviate_state(state))  # example: California FIPS
-city_fips = get_city_fips(city, abbreviate_state(state))
-check_fips(state_fips, city_fips, CENSUS_API_KEY)
-# Check variables that are available
-variables = list(ACS5_VARIABLES.keys())
-url = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
-check_vars_batch(url, variables, city_fips, state_fips, CENSUS_API_KEY, batch_size=10)
-
 ##% Query and set up ACS table
 ## Grab cities from database
 conn = sqlite3.connect(DB_PATH)
