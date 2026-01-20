@@ -175,6 +175,7 @@ def get_city_fips(city, state, acs5_year=2023):
 	# If one item returned, assume match; if multiple, clarify " city" suffix
 	if len(matches)==1:
 		city_fips = matches[0][2] # Return ACS place sublist then select city_fips element [2]
+		# TODO: For ('Jupiter','Florida') raises IndexError: list index out of range
 	elif len(matches)>1:
 		city_fips = [item for item in data if item[0].startswith(city+" city")][0][2] # Return ACS place sublist then select city_fips element [2]
 	else:
@@ -253,7 +254,7 @@ check_vars_batch(url, variables, city_fips, state_fips, CENSUS_API_KEY, batch_si
 ## Grab cities from database
 conn = sqlite3.connect(DB_PATH)
 query = "SELECT City, State FROM minor_league_teams;"
-cities_list, cities_df, failed_cities = [], [], [] # TODO: Create outlet for failed_cities with try/except
+cities_list, cities_df_list, failed_cities = [], [], [] # TODO: Create outlet for failed_cities with try/except
 for row in conn.execute(query):
 	print(row)
 	cities_list.append(row)
@@ -286,14 +287,17 @@ for row in conn.execute(query):
 		if col not in city_df.columns:
 			city_df[col] = np.nan # NOTE: Be aware, is np.nan the best choice?
 	city_df = city_df[["NAME"] + vars + ["city_name", "state_name"]]
-	cities_df.append(city_df)
+	cities_df_list.append(city_df)
 
 # User data headers from json to set column names, create df from collected responses
-cities_df = pd.DataFrame(cities_df, columns=[data[0]+["city_name","state_name"]])
+# cities_df = pd.DataFrame(cities_df, columns=[data[0]+["city_name","state_name"]])
+cities_df = pd.concat(cities_df_list,axis=0)
 # Reformat columns (non-Census cols)
 cities_df.columns = [
-	col.lower().replace(" ", "_") if not re.search(r"\d", col) else col
-	for col in cities_df.columns
+    col.lower().replace(" ", "_")
+    if isinstance(col, str) and not re.search(r"\d", col)
+    else col
+    for col in cities_df.columns
 ]
 # Use ACS variables dict to rename columns into logical form
 # TODO: Instead create a key table or similar, so we can log descriptions
