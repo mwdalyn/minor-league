@@ -117,23 +117,6 @@ STATE_ABBR = {
 }
 
 # Methods
-# def abbreviate_state(state_input,title_to_abbr=True):
-# 	'''
-# 	If state input is a full name, normalize to abbrev.
-# 	'''
-# 	if title_to_abbr:
-# 		state_input = state_input.strip().title()  # "ohio" -> "Ohio"
-# 		if state_input in STATE_ABBR:
-# 			return STATE_ABBR[state_input]
-# 		elif state_input.upper() in STATE_ABBR.values():
-# 			return state_input.upper()  # Already abbreviation
-# 		else:
-# 			# raise ValueError(f"Unknown state: {state_input}")
-# 			print(f"Unknown state: {state_input}") # TODO: Find a way to handle issues here without breaking
-# 			return None
-# 	else:
-# 		return None
-
 def abbreviate_state(state):
 	state = state.strip().title()
 	if state in STATE_ABBR:
