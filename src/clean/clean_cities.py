@@ -157,7 +157,6 @@ def read_city_soup(soup, output_csv_path=None):
 def add_lat_lon(city, state, header=None):
 	## Begin attempts to geolocate/grab data on cities
 	if not header:
-		# TODO: Throw exception?
 		return None, None
 	geolocator = Nominatim(user_agent=header) 
 	# Lat Lon 

@@ -158,11 +158,10 @@ def get_city_fips(city, state, acs5_year=2023):
 	# If one item returned, assume match; if multiple, clarify " city" suffix
 	if len(matches)==1:
 		city_fips = matches[0][2] # Return ACS place sublist then select city_fips element [2]
-		# TODO: For ('Jupiter','Florida') raises IndexError: list index out of range
 	elif len(matches)>1:
 		city_fips = [item for item in data if item[0].startswith(city+" city")][0][2] # Return ACS place sublist then select city_fips element [2]
 	else:
-		city_fips = None # TODO: Don't like "None" in this instance, is there a better option for fail state?
+		city_fips = None 
 	return city_fips
 
 def check_fips(state_fips, place_fips, api_key, acs5_year=2023):
@@ -311,7 +310,6 @@ for row in conn.execute(query):
 	cities_df_list.append(city_df)
 
 # User data headers from json to set column names, create df from collected responses
-# cities_df = pd.DataFrame(cities_df, columns=[data[0]+["city_name","state_name"]])
 cities_df = pd.concat(cities_df_list,axis=0).rename(columns={"NAME":"PLACE_NAME"})
 # Reformat columns (non-Census cols)
 cities_df.columns = [
@@ -323,11 +321,8 @@ cities_df.columns = [
 	for col in cities_df.columns
 ]
 
-# Use ACS variables dict to rename columns into logical form
-# TODO: Instead create a key table or similar, so we can log descriptions
 # Upsert into database
 REQUIRED_COLUMNS = ['place_name','city_name', 'state_name', 'b01003_001e', 'b01002_001e', 'b01001_002e', 'b01001_026e', 'b01001_007e', 'b01001_008e', 'b01001_009e', 'b01001_010e', 'b01001_011e', 'b01001_012e', 'b01001_013e', 'b01001_031e', 'b01001_032e', 'b01001_033e', 'b01001_034e', 'b01001_035e', 'b01001_036e', 'b01001_037e', 'b11016_001e', 'b19013_001e', 'b19025_001e', 'b11001_001e', 'b23025_002e', 'b23025_004e', 'c24050_002e', 'c24050_003e', 'c24050_004e', 'c24050_005e', 'c24050_006e', 'c24050_007e', 'c24050_008e', 'c24050_009e', 'c24050_010e', 'c24050_011e', 'c24050_012e', 'c24050_013e']
-# TODO: Develop upsert
 
 CREATE_TABLE_SQL = """
 CREATE TABLE IF NOT EXISTS census_acs (
