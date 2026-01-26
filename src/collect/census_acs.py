@@ -2,6 +2,7 @@
 Docstring for collect.census_api
 ac5 geographic options: https://api.census.gov/data/2023/acs/acs5/geography.html
 NOTE: Census Geocoder API available for intaking LL instead of City, State. FIPS seems more compatible 
+
 '''
 # Imports
 import os, requests, time, re
@@ -20,9 +21,8 @@ CENSUS_API_KEY = os.getenv("CENSUS_API_KEY")
 # Constants
 SLEEP_TIME = 1
 DB_PATH = os.path.abspath(os.path.join('.','database','milb.sqlite'))
-BENCHMARK_YEAR = 9999 # 9999 = Current benchmark
+# BENCHMARK_YEAR = 9999 # 9999 = Current benchmark
 ACS5_YEAR = 2023 # Can be for 5Y ACS or 1Y ACS, need to determine which
-CBP_YEAR = 2023
 ACS1_YEAR_DICT = {
 	2022: [2022],
 	2021: [2021],
@@ -279,21 +279,3 @@ required_columns = cities_df.columns.tolist()
 # TODO: Develop upsert
 
 
-##% Query and set up CBP (econ) table
-## Grab cities from database
-acs5_variables = list(ACS5_VARIABLES.keys())
-conn = sqlite3.connect(DB_PATH)
-query = "SELECT City, State FROM minor_league_teams;"
-cities_list, cities_df, failed_cities = [], [], [] # TODO: Create outlet for failed_cities with try/except
-for row in conn.execute(query):
-	print(row)
-	cities_list.append(row)
-	city, state = row
-	state_fips = get_state_fips(abbreviate_state(state))
-	city_fips = get_city_fips(city, abbreviate_state(state))
-	print("Sleep")
-	time.sleep(SLEEP_TIME)
-	print("Wake")
-	# Query data
-	url = "https://api.census.gov/data/{}/cbp".format(str(CBP_YEAR))
-	# TODO

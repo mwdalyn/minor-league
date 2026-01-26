@@ -307,7 +307,7 @@ def clean_value(val):
 			return json.dumps(val)  # Convert to JSON string
 		return val
 
-def upsert_cities_more_robust(df, db_path=DB_PATH):
+def upsert_cities_robust(df, db_path=DB_PATH):
 	"""
 	Upsert city records into SQLite database safely.
 	Cleans unsupported types and ensures proper records format.
@@ -354,7 +354,10 @@ def drop_cities_table(db_path=DB_PATH):
 	conn.commit()
 	conn.close()
 
-def clean_cities():
+def clean_wiki_cities():
+	'''
+	Grab already-cooked Wikipedia page HTMLs, parse, clean, and insert/upsert into SQL.
+	Targets most recently created city, state HTML.'''
 	## Grab cities from database
 	conn = sqlite3.connect(DB_PATH)
 	query = "SELECT City, State FROM minor_league_teams;"
@@ -456,6 +459,6 @@ def clean_cities():
 	cities_df.to_csv(os.path.abspath(os.path.join(".","data","fin","cities_df.csv")))
 
 	## Inject cities_df into DB table
-	upsert_cities_more_robust(cities_df, db_path=DB_PATH) # NOTE: Doesn't work, param 13 error nonstandard
+	upsert_cities_robust(cities_df, db_path=DB_PATH) # NOTE: Doesn't work, param 13 error nonstandard
 
-# clean_cities()
+
