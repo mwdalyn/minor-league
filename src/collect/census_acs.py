@@ -5,7 +5,7 @@ NOTE: Census Geocoder API available for intaking LL instead of City, State. FIPS
 
 '''
 # Imports
-import os, requests, time, re
+import os, requests, time, re, json
 import sqlite3
 from dotenv import load_dotenv
 import pandas as pd
@@ -222,6 +222,50 @@ def check_available_vars_per_city_batched(year, city_state_list, variables, key)
 	
 	return results
 
+def clean_value(val):
+		if pd.isna(val):
+			return None
+		if isinstance(val, (list, dict, set, np.generic)):
+			return json.dumps(val)  # Convert to JSON string
+		return val
+
+def upsert_cities_robust(df, db_path=DB_PATH):
+	"""
+	Upsert city records into SQLite database safely.
+	Cleans unsupported types and ensures proper records format.
+	"""
+	if not isinstance(df, pd.DataFrame):
+		raise TypeError("Input must be a pandas DataFrame")
+
+	# Ensure all required columns exist
+	missing_cols = [col for col in REQUIRED_COLUMNS if col not in df.columns]
+	if missing_cols:
+		raise ValueError(f"The following required columns are missing from the DataFrame: {missing_cols}")
+
+	# Create list of tuples for executemany
+	records = [
+		tuple(clean_value(row[col]) for col in REQUIRED_COLUMNS)
+		for row in df.to_dict("records")
+	]
+
+	if not records:
+		return  # Nothing to insert
+	
+	with open(os.path.abspath(os.path.join(".","data","mid","cities_records.txt")), "w") as f:
+		f.write(str(records))
+
+	# Upsert into SQLite
+	try:
+		conn = sqlite3.connect(db_path)
+		cursor = conn.cursor()
+		cursor.execute(CREATE_TABLE_SQL)
+		cursor.execute(CREATE_UPDATE_TRIGGER_SQL)
+		cursor.executemany(UPSERT_SQL, records)
+		conn.commit()
+		conn.close()
+	except Exception as e: 
+		print(e)
+
 
 ##% Query and set up ACS table
 ## Grab cities from database
@@ -232,8 +276,12 @@ for row in conn.execute(query):
 	print(row)
 	cities_list.append(row)
 	city, state = row
-	state_fips = get_state_fips(abbreviate_state(state))
-	city_fips = get_city_fips(city, abbreviate_state(state))
+	try:
+		state_fips = get_state_fips(abbreviate_state(state))
+		city_fips = get_city_fips(city, abbreviate_state(state))
+	except Exception as e:
+		print("Exception thrown: {}".format(e))
+		continue
 	if not city or not state or not state_fips or not city_fips or check_fips(state_fips, city_fips, CENSUS_API_KEY):
 		print("Something wrong with FIPS results for {}, {}: {},{}".format(city, state, city_fips, state_fips))
 		continue # if not, all OK
@@ -242,7 +290,7 @@ for row in conn.execute(query):
 	url = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
 	available_vars = check_vars_batch(url, vars, city_fips, state_fips, CENSUS_API_KEY, batch_size=10)
 	time.sleep(SLEEP_TIME)
-	# Query Census ACS data (simple, for now) # TODO: Build in more selection for Benchmark geo and Vintage of ACS to get a longitudinal view
+	# Query Census ACS data (simple, for now) 
 	url = "https://api.census.gov/data/{}/acs/acs5".format(str(ACS5_YEAR))
 	params = {
 		"get": "NAME,{}".format(",".join(available_vars)),  # median household income
@@ -264,18 +312,169 @@ for row in conn.execute(query):
 
 # User data headers from json to set column names, create df from collected responses
 # cities_df = pd.DataFrame(cities_df, columns=[data[0]+["city_name","state_name"]])
-cities_df = pd.concat(cities_df_list,axis=0)
+cities_df = pd.concat(cities_df_list,axis=0).rename(columns={"NAME":"PLACE_NAME"})
 # Reformat columns (non-Census cols)
 cities_df.columns = [
-    col.lower().replace(" ", "_")
-    if isinstance(col, str) and not re.search(r"\d", col)
-    else col
-    for col in cities_df.columns
+	"_".join(map(str, col)).lower().replace(" ", "_")
+	if isinstance(col, tuple)
+	else col.lower().replace(" ", "_")
+	if isinstance(col, str) and not re.search(r"\d", col)
+	else str(col)
+	for col in cities_df.columns
 ]
+
 # Use ACS variables dict to rename columns into logical form
 # TODO: Instead create a key table or similar, so we can log descriptions
 # Upsert into database
-required_columns = cities_df.columns.tolist()
+REQUIRED_COLUMNS = ['place_name','city_name', 'state_name', 'b01003_001e', 'b01002_001e', 'b01001_002e', 'b01001_026e', 'b01001_007e', 'b01001_008e', 'b01001_009e', 'b01001_010e', 'b01001_011e', 'b01001_012e', 'b01001_013e', 'b01001_031e', 'b01001_032e', 'b01001_033e', 'b01001_034e', 'b01001_035e', 'b01001_036e', 'b01001_037e', 'b11016_001e', 'b19013_001e', 'b19025_001e', 'b11001_001e', 'b23025_002e', 'b23025_004e', 'c24050_002e', 'c24050_003e', 'c24050_004e', 'c24050_005e', 'c24050_006e', 'c24050_007e', 'c24050_008e', 'c24050_009e', 'c24050_010e', 'c24050_011e', 'c24050_012e', 'c24050_013e']
 # TODO: Develop upsert
 
+CREATE_TABLE_SQL = """
+CREATE TABLE IF NOT EXISTS census_acs (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+	place_name TEXT NOT NULL,
+	city_name TEXT NOT NULL,
+	state_name TEXT NOT NULL,
+
+	b01003_001e FLOAT,
+	b01002_001e FLOAT,
+	b01001_002e FLOAT,
+	b01001_026e FLOAT,
+	b01001_007e FLOAT,
+	b01001_008e FLOAT,
+	b01001_009e FLOAT,
+	b01001_010e FLOAT,
+	b01001_011e FLOAT,
+	b01001_012e FLOAT,
+	b01001_013e FLOAT,
+	b01001_031e FLOAT,
+	b01001_032e FLOAT,
+	b01001_033e FLOAT,
+	b01001_034e FLOAT,
+	b01001_035e FLOAT,
+	b01001_036e FLOAT,
+	b01001_037e FLOAT,
+	b11016_001e FLOAT,
+	b19013_001e FLOAT,
+	b19025_001e FLOAT,
+	b11001_001e FLOAT,
+	b23025_002e FLOAT,
+	b23025_004e FLOAT,
+	c24050_002e FLOAT,
+	c24050_003e FLOAT,
+	c24050_004e FLOAT,
+	c24050_005e FLOAT,
+	c24050_006e FLOAT,
+	c24050_007e FLOAT,
+	c24050_008e FLOAT,
+	c24050_009e FLOAT,
+	c24050_010e FLOAT,
+	c24050_011e FLOAT,
+	c24050_012e FLOAT,
+	c24050_013e FLOAT,
+
+	created_on TEXT DEFAULT CURRENT_TIMESTAMP,
+	updated_on TEXT DEFAULT CURRENT_TIMESTAMP,
+
+	UNIQUE (place_name, city_name, state_name)
+);"""
+
+CREATE_UPDATE_TRIGGER_SQL = """
+	CREATE TRIGGER IF NOT EXISTS trg_census_acs_updated
+	AFTER UPDATE ON census_acs
+	FOR EACH ROW
+	BEGIN
+		UPDATE census_acs
+		SET updated_on = CURRENT_TIMESTAMP
+		WHERE id = OLD.id;
+	END;"""
+ 
+UPSERT_SQL = """
+	INSERT INTO census_acs (
+		place_name,
+		city_name,
+		state_name,
+		b01003_001e,
+		b01002_001e,
+		b01001_002e,
+		b01001_026e,
+		b01001_007e,
+		b01001_008e,
+		b01001_009e,
+		b01001_010e,
+		b01001_011e,
+		b01001_012e,
+		b01001_013e,
+		b01001_031e,
+		b01001_032e,
+		b01001_033e,
+		b01001_034e,
+		b01001_035e,
+		b01001_036e,
+		b01001_037e,
+		b11016_001e,
+		b19013_001e,
+		b19025_001e,
+		b11001_001e,
+		b23025_002e,
+		b23025_004e,
+		c24050_002e,
+		c24050_003e,
+		c24050_004e,
+		c24050_005e,
+		c24050_006e,
+		c24050_007e,
+		c24050_008e,
+		c24050_009e,
+		c24050_010e,
+		c24050_011e,
+		c24050_012e,
+		c24050_013e
+	)
+	VALUES (
+		?, ?, ?, ?, 
+		?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+	)
+	ON CONFLICT (place_name, city_name, state_name) DO UPDATE SET
+		b01003_001e = excluded.b01003_001e,
+		b01002_001e = excluded.b01002_001e,
+		b01001_002e = excluded.b01001_002e,
+		b01001_026e = excluded.b01001_026e,
+		b01001_007e = excluded.b01001_007e,
+		b01001_008e = excluded.b01001_008e,
+		b01001_009e = excluded.b01001_009e,
+		b01001_010e = excluded.b01001_010e,
+		b01001_011e = excluded.b01001_011e,
+		b01001_012e = excluded.b01001_012e,
+		b01001_013e = excluded.b01001_013e,
+		b01001_031e = excluded.b01001_031e,
+		b01001_032e = excluded.b01001_032e,
+		b01001_033e = excluded.b01001_033e,
+		b01001_034e = excluded.b01001_034e,
+		b01001_035e = excluded.b01001_035e,
+		b01001_036e = excluded.b01001_036e,
+		b01001_037e = excluded.b01001_037e,
+		b11016_001e = excluded.b11016_001e,
+		b19013_001e = excluded.b19013_001e,
+		b19025_001e = excluded.b19025_001e,
+		b11001_001e = excluded.b11001_001e,
+		b23025_002e = excluded.b23025_002e,
+		b23025_004e = excluded.b23025_004e,
+		c24050_002e = excluded.c24050_002e,
+		c24050_003e = excluded.c24050_003e,
+		c24050_004e = excluded.c24050_004e,
+		c24050_005e = excluded.c24050_005e,
+		c24050_006e = excluded.c24050_006e,
+		c24050_007e = excluded.c24050_007e,
+		c24050_008e = excluded.c24050_008e,
+		c24050_009e = excluded.c24050_009e,
+		c24050_010e = excluded.c24050_010e,
+		c24050_011e = excluded.c24050_011e,
+		c24050_012e = excluded.c24050_012e,
+		c24050_013e = excluded.c24050_013e,
+		updated_on = CURRENT_TIMESTAMP;"""
+
+## Inject cities_df into DB table
+upsert_cities_robust(cities_df, db_path=DB_PATH) # NOTE: Doesn't work, param 13 error nonstandard
 
