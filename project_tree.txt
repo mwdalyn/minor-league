@@ -1,0 +1,29 @@
+minor-league
+├── .gitignore
+├── README.md
+├── city_html_all_infobox_data.txt
+└── src
+    ├── ___init___.py
+    ├── clean
+    │   ├── __init__.py
+    │   ├── clean_cities.py
+    │   ├── clean_players.py
+    │   ├── clean_teams.py
+    │   └── crosswalks.py
+    ├── collect
+    │   ├── __init__.py
+    │   ├── census_acs.py
+    │   ├── census_cbp.py
+    │   ├── fred_api.py
+    │   ├── mlb_api.py
+    │   └── wikipedia.py
+    ├── database
+    │   └── load_db.py
+    ├── utils
+    │   ├── ___init___.py
+    │   ├── __pycache__
+    │   │   └── html.cpython-39.pyc
+    │   ├── census.py
+    │   └── html.py
+    └── viz
+        └── map.py
