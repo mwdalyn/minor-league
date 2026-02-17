@@ -6,15 +6,11 @@ Collect data and logos for all minor league baseball teams documented at the fol
 https://en.wikipedia.org/wiki/List_of_Minor_League_Baseball_leagues_and_teams
 Store the data in a convenient way and retrieve. 
 '''
-
 # Imports
 import datetime as dt
 import os
-from src.utils.html import cook_soup, set_user_agent
-# Constants
-SLEEP_TIME = 6 # seconds for sleep
-TEAMS_LINK = "https://en.wikipedia.org/wiki/List_of_Minor_League_Baseball_leagues_and_teams"
-USER_AGENT = set_user_agent(header_file=os.path.abspath(os.path.join(".","user-agent.txt")))
+from src.utils.html import cook_soup
+from src.constants import TEAMS_LINK, USER_AGENT
 
 # Functions
 def cook_teams_soup(header = USER_AGENT, output_file_path = os.path.join("data","html","milb")):
